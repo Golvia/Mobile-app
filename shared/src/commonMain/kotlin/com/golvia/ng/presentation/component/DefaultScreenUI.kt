@@ -57,7 +57,7 @@ fun DefaultScreenUI(
         topBar = {
                 if(backIconToolbar != null){
                     Row(
-                        modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        modifier = Modifier.fillMaxWidth().padding(8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start
                     ){
