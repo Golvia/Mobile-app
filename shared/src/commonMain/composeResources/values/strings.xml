@@ -11,5 +11,10 @@
     <string name="forget_password">Forget Password?</string>
     <string name="login">Login</string>
     <string name="forgot_account">Don’t have an account? </string>
+    <string name="have_account">Have an account? </string>
     <string name="sign_up">Sign up</string>
+    <string name="register_with_email">Signup with email</string>
+    <string name="create_account">Create a new Account</string>
+    <string name="enter_your_email">Enter your email to reset password</string>
+    <string name="forgot_password">Forget Password?</string>
 </resources>

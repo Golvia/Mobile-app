@@ -1,14 +1,16 @@
 package com.golvia.ng.presentation.navigation
 
 import golvia.shared.generated.resources.Res
-import golvia.shared.generated.resources.cart
-import golvia.shared.generated.resources.cart_border
-import golvia.shared.generated.resources.heart2
-import golvia.shared.generated.resources.heart_border2
 import golvia.shared.generated.resources.home
-import golvia.shared.generated.resources.home_border
-import golvia.shared.generated.resources.profile
-import golvia.shared.generated.resources.profile_border
+import golvia.shared.generated.resources.home_selected
+import golvia.shared.generated.resources.ic_messages
+import golvia.shared.generated.resources.ic_messages_selected
+import golvia.shared.generated.resources.ic_network
+import golvia.shared.generated.resources.ic_network_selected
+import golvia.shared.generated.resources.ic_notification
+import golvia.shared.generated.resources.ic_notification_selected
+import golvia.shared.generated.resources.ic_settings
+import golvia.shared.generated.resources.ic_settings_selected
 import org.jetbrains.compose.resources.DrawableResource
 
 /**
@@ -24,26 +26,32 @@ sealed class MainNavigation (
 
     data object Home : MainNavigation(
         route = "Home", title = "Home",
-        selectedIcon = Res.drawable.home,
-        unSelectedIcon = Res.drawable.home_border
+        selectedIcon = Res.drawable.home_selected,
+        unSelectedIcon = Res.drawable.home
     )
 
-    data object Wishlist : MainNavigation(
-        route = "Wishlist", title = "Wishlist",
-        selectedIcon = Res.drawable.heart2,
-        unSelectedIcon = Res.drawable.heart_border2
+    data object Network : MainNavigation(
+        route = "Network", title = "Network",
+        selectedIcon = Res.drawable.ic_network_selected,
+        unSelectedIcon = Res.drawable.ic_network
     )
 
-    data object Cart : MainNavigation(
-        route = "Cart", title = "Cart",
-        selectedIcon = Res.drawable.cart,
-        unSelectedIcon = Res.drawable.cart_border
+    data object Messages : MainNavigation(
+        route = "Messages", title = "Messages",
+        selectedIcon = Res.drawable.ic_messages_selected,
+        unSelectedIcon = Res.drawable.ic_messages
     )
 
-    data object Profile : MainNavigation(
-        route = "Profile", title = "Profile",
-        selectedIcon = Res.drawable.profile,
-        unSelectedIcon = Res.drawable.profile_border
+    data object Notification : MainNavigation(
+        route = "Notification", title = "Notification",
+        selectedIcon = Res.drawable.ic_notification_selected,
+        unSelectedIcon = Res.drawable.ic_notification
+    )
+
+    data object Settings : MainNavigation(
+        route = "Settings", title = "Settings",
+        selectedIcon = Res.drawable.ic_settings_selected,
+        unSelectedIcon = Res.drawable.ic_settings
     )
 
 

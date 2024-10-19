@@ -70,7 +70,8 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun LoginScreen(
     navigateToMain: () -> Unit,
-    navigateToRegister: () -> Unit
+    navigateToRegister: () -> Unit,
+    navigateToForgotPassword: () -> Unit
 ) {
     ChangeStatusBarColors(Color.White)
 
@@ -163,7 +164,7 @@ fun LoginScreen(
                     DefaultText(
                         modifier = Modifier
                             .clickable {
-                                //Todo navigate to forgot Password
+                                navigateToForgotPassword()
                             },
                         textValue = stringResource(Res.string.forget_password),
                         color = Color.Black,
@@ -207,6 +208,10 @@ fun LoginScreen(
                         textValue = stringResource(Res.string.forgot_account),
                         color = default_black)
                     DefaultText(
+                        modifier = Modifier
+                            .clickable {
+                                navigateToRegister()
+                            },
                         textValue = stringResource(Res.string.sign_up),
                         color = PrimaryColor,
                         textDecoration = TextDecoration.Underline,
