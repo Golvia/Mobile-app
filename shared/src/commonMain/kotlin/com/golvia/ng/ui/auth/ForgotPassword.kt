@@ -62,7 +62,7 @@ fun ForgotPasswordScreen(
         onClickStartIconToolbar = { popUp() },
         onRemoveHeadFromQueue = { },
     ) {
-        val email by remember { mutableStateOf("") }
+        val email = remember { mutableStateOf("") }
 
         Box(
             modifier = Modifier
@@ -96,7 +96,10 @@ fun ForgotPasswordScreen(
                     )
                     Spacer_4dp()
                     OutlinedInputField(
-                        textFieldValue = mutableStateOf(email),
+                        textFieldValue = email.value,
+                        onValueChange = {
+                            email.value = it
+                        },
                         keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
                         keyboardType = KeyboardType.Email,
@@ -116,7 +119,7 @@ fun ForgotPasswordScreen(
                     textButton = stringResource(Res.string.forget_password),
                     textColor = Color.White,
                     containerColor = PrimaryColor,
-                    enabled = true,
+                    enabled = email.value.isNotEmpty(),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)

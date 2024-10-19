@@ -78,8 +78,8 @@ fun LoginScreen(
     DefaultScreenUI(
         onRemoveHeadFromQueue = { },
     ) {
-        val email by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
+        val email = remember { mutableStateOf(String()) }
+        val password = remember { mutableStateOf(String()) }
 
         Box(
             modifier = Modifier
@@ -139,7 +139,10 @@ fun LoginScreen(
                     )
                     Spacer_4dp()
                     OutlinedInputField(
-                        textFieldValue = mutableStateOf(email)
+                        textFieldValue = email.value,
+                        onValueChange = {
+                            email.value = it
+                        }
                     )
                     Spacer_24dp()
                     InputFieldHeader(
@@ -147,9 +150,9 @@ fun LoginScreen(
                     )
                     PasswordTextField(
                         // isError = isPasswordError,
-                        value = password,
+                        value = password.value,
                         onValueChange = {
-                            password = it
+                            password.value = it
                         },
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -189,7 +192,7 @@ fun LoginScreen(
                     textButton = stringResource(Res.string.login),
                     textColor = Color.White,
                     containerColor = PrimaryColor,
-                    enabled = true,
+                    enabled = email.value.isNotEmpty() && password.value.isNotEmpty(),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)

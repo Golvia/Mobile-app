@@ -78,8 +78,8 @@ fun RegisterScreen(
     DefaultScreenUI(
         onRemoveHeadFromQueue = { },
     ) {
-        val email by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
+        val email = remember { mutableStateOf("") }
+        var password = remember { mutableStateOf("") }
 
         Box(
             modifier = Modifier
@@ -139,7 +139,10 @@ fun RegisterScreen(
                     )
                     Spacer_4dp()
                     OutlinedInputField(
-                        textFieldValue = mutableStateOf(email)
+                        textFieldValue = email.value,
+                        onValueChange = {
+                            email.value = it
+                        }
                     )
                     Spacer_24dp()
                     InputFieldHeader(
@@ -147,9 +150,9 @@ fun RegisterScreen(
                     )
                     PasswordTextField(
                         // isError = isPasswordError,
-                        value = password,
+                        value = password.value,
                         onValueChange = {
-                            password = it
+                            password.value = it
                         },
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -167,7 +170,7 @@ fun RegisterScreen(
                     textButton = stringResource(Res.string.sign_up),
                     textColor = Color.White,
                     containerColor = PrimaryColor,
-                    enabled = true,
+                    enabled = email.value.isNotEmpty() && password.value.isNotEmpty(),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)

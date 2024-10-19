@@ -27,7 +27,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
  fun OutlinedInputField(
-    textFieldValue: MutableState<String>,
+    textFieldValue: String,
+    onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         imeAction = ImeAction.Next,
         keyboardType = KeyboardType.Email,
@@ -41,13 +42,13 @@ import org.jetbrains.compose.resources.stringResource
     ) {
         TextField(
             isError = false,
-            value = textFieldValue.value,
+            value = textFieldValue,
             placeholder = {
                 Text(stringResource(Res.string.email_hint), color = Color.Gray)
             },
             onValueChange = {
                 if (it.length < 32) {
-                    textFieldValue.value = it
+                    onValueChange(it)
                 }
             },
             modifier = Modifier
