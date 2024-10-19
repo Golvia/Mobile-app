@@ -175,6 +175,8 @@ fun LoginScreen(
                         textDecoration = TextDecoration.Underline
                     )
                 }
+
+                Spacer(modifier = Modifier.height(300.dp))
             }
 
             Column(
