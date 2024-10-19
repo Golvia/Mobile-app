@@ -150,6 +150,7 @@ fun RegisterScreen(
                     InputFieldHeader(
                         textValue = stringResource(Res.string.password)
                     )
+                    Spacer_4dp()
                     PasswordTextField(
                          isError = isPasswordError.value,
                         errorValue = stringResource(Res.string.password_error),
