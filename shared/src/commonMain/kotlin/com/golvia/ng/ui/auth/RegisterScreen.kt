@@ -58,6 +58,7 @@ import golvia.shared.generated.resources.ic_google_icon
 import golvia.shared.generated.resources.ic_logo_header
 import golvia.shared.generated.resources.login
 import golvia.shared.generated.resources.password
+import golvia.shared.generated.resources.password_error
 import golvia.shared.generated.resources.register_with_email
 import golvia.shared.generated.resources.sign_up
 import org.jetbrains.compose.resources.painterResource
@@ -79,7 +80,8 @@ fun RegisterScreen(
         onRemoveHeadFromQueue = { },
     ) {
         val email = remember { mutableStateOf("") }
-        var password = remember { mutableStateOf("") }
+        val password = remember { mutableStateOf("") }
+        val isPasswordError = remember { mutableStateOf(false) }
 
         Box(
             modifier = Modifier
@@ -149,7 +151,8 @@ fun RegisterScreen(
                         textValue = stringResource(Res.string.password)
                     )
                     PasswordTextField(
-                        // isError = isPasswordError,
+                         isError = isPasswordError.value,
+                        errorValue = stringResource(Res.string.password_error),
                         value = password.value,
                         onValueChange = {
                             password.value = it
@@ -175,8 +178,14 @@ fun RegisterScreen(
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)
                 ) {
-                    // Todo navigate to main when auth is done
-                    navigateToMain()
+                    if (password.value.length < 6) {
+                        isPasswordError.value = true
+                        return@NormalRoundedButton
+                    } else {
+                        isPasswordError.value = false
+                        // Todo navigate to main when auth is done
+                        navigateToMain()
+                    }
                 }
 
                 Row(

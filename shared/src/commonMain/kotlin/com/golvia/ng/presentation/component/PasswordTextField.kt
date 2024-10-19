@@ -3,7 +3,10 @@ package com.golvia.ng.presentation.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,14 +20,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.LightGray
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.golvia.ng.presentation.theme.LatoTypography
 import com.golvia.ng.presentation.theme.TextFieldWithTransparentTheme
 import com.golvia.ng.presentation.theme.gray_20
 import com.golvia.ng.presentation.theme.gray_50
+import com.golvia.ng.presentation.theme.icon_default_color
+import com.golvia.ng.presentation.theme.red_error
 import golvia.shared.generated.resources.Res
 import golvia.shared.generated.resources.ic_password_hide
 import golvia.shared.generated.resources.ic_password_show
@@ -41,6 +49,7 @@ fun PasswordTextField(
     readOnly: Boolean = false,
     isError: Boolean = false,
     enabled: Boolean = true,
+    errorValue: String? = null,
     onValueChange: (String) -> Unit,
 ) {
     val isPasswordVisible = remember { mutableStateOf(false) }
@@ -55,46 +64,59 @@ fun PasswordTextField(
             .background(Color.White)
             .border(1.dp, LightGray, MaterialTheme.shapes.small)
     ){
-        TextField(
-            isError = isError,
-            modifier = modifier,
-            placeholder = {
-                Text(stringResource(Res.string.password_hint), color = Color.Gray)
-            },
-            colors = TextFieldWithTransparentTheme(),
-            shape = MaterialTheme.shapes.small,
-            readOnly = readOnly,
-            value = value,
-            onValueChange = { onValueChange(it) },
-            trailingIcon = {
-                IconButton(onClick = {
-                    if (enabled) {
-                        isPasswordVisible.value = !isPasswordVisible.value
-                    }
-                }) {
-                    when (isPasswordVisible.value) {
-                        true -> Icon(
-                            painter = painterResource(Res.drawable.ic_password_hide),
-                            contentDescription = null,
-                            tint = gray_50,
-                        )
+        Column {
+            TextField(
+                modifier = modifier,
+                placeholder = {
+                    Text(stringResource(Res.string.password_hint), color = Color.Gray)
+                },
+                colors = TextFieldWithTransparentTheme(),
+                shape = MaterialTheme.shapes.small,
+                readOnly = readOnly,
+                value = value,
+                onValueChange = { onValueChange(it) },
+                trailingIcon = {
+                    IconButton(onClick = {
+                        if (enabled) {
+                            isPasswordVisible.value = !isPasswordVisible.value
+                        }
+                    }) {
+                        when (isPasswordVisible.value) {
+                            true -> Icon(
+                                painter = painterResource(Res.drawable.ic_password_hide),
+                                contentDescription = null,
+                                tint = gray_50,
+                            )
 
-                        false -> Icon(
-                            painter = painterResource(Res.drawable.ic_password_show),
-                            contentDescription = null,
-                            tint = gray_50,
-                        )
+                            false -> Icon(
+                                painter = painterResource(Res.drawable.ic_password_show),
+                                contentDescription = null,
+                                tint = gray_50,
+                            )
+                        }
                     }
-                }
-            },
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Password,
-            ),
-            visualTransformation = when (isPasswordVisible.value) {
-                true -> VisualTransformation.None
-                false -> PasswordVisualTransformation()
-            },
-        )
+                },
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Password,
+                ),
+                visualTransformation = when (isPasswordVisible.value) {
+                    true -> VisualTransformation.None
+                    false -> PasswordVisualTransformation()
+                },
+            )
+            Spacer(modifier = Modifier.padding(top = 2.dp))
+            if (isError){
+                Text(
+                    style = TextStyle(
+                        fontSize = 10.sp,
+                        lineHeight = 12.sp,
+                        fontFamily = LatoTypography().bodySmall.fontFamily
+                    ),
+                    text = errorValue.orEmpty(),
+                    color = red_error
+                )
+            }
+        }
     }
 }
