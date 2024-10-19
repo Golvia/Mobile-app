@@ -58,13 +58,13 @@ fun PasswordTextField(
         if (!enabled) isPasswordVisible.value = false
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .border(1.dp, LightGray, MaterialTheme.shapes.small)
-    ){
-        Column {
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .border(1.dp, LightGray, MaterialTheme.shapes.small)
+        ){
             TextField(
                 modifier = modifier,
                 placeholder = {
@@ -105,18 +105,20 @@ fun PasswordTextField(
                     false -> PasswordVisualTransformation()
                 },
             )
-            Spacer(modifier = Modifier.padding(top = 2.dp))
-            if (isError){
-                Text(
-                    style = TextStyle(
-                        fontSize = 10.sp,
-                        lineHeight = 12.sp,
-                        fontFamily = LatoTypography().bodySmall.fontFamily
-                    ),
-                    text = errorValue.orEmpty(),
-                    color = red_error
-                )
-            }
+
+        }
+
+        Spacer(modifier = Modifier.padding(top = 2.dp))
+        if (isError){
+            Text(
+                style = TextStyle(
+                    fontSize = 10.sp,
+                    lineHeight = 12.sp,
+                    fontFamily = LatoTypography().bodySmall.fontFamily
+                ),
+                text = errorValue.orEmpty(),
+                color = red_error
+            )
         }
     }
 }
