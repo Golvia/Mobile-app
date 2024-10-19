@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.golvia.ng.presentation.theme.TextFieldWithTransparentTheme
 import golvia.shared.generated.resources.Res
@@ -28,7 +27,11 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
  fun OutlinedInputField(
-    textFieldValue: MutableState<String>
+    textFieldValue: MutableState<String>,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(
+        imeAction = ImeAction.Next,
+        keyboardType = KeyboardType.Email,
+    )
 ) {
     Box(
         modifier = Modifier
@@ -53,10 +56,7 @@ import org.jetbrains.compose.resources.stringResource
             colors = TextFieldWithTransparentTheme(),
             shape = MaterialTheme.shapes.small,
             singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Next,
-                keyboardType = KeyboardType.Email,
-            ),
+            keyboardOptions = keyboardOptions,
         )
     }
 }

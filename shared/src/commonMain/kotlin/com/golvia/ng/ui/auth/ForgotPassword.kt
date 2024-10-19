@@ -9,7 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.golvia.ng.presentation.component.DefaultScreenUI
@@ -29,10 +35,14 @@ import com.golvia.ng.presentation.component.OutlinedInputField
 import com.golvia.ng.presentation.component.Spacer_16dp
 import com.golvia.ng.presentation.component.Spacer_32dp
 import com.golvia.ng.presentation.component.Spacer_4dp
+import com.golvia.ng.presentation.component.Spacer_8dp
 import com.golvia.ng.presentation.theme.LatoTypography
 import com.golvia.ng.presentation.theme.PrimaryColor
 import com.golvia.ng.presentation.theme.Thick_black
 import golvia.shared.generated.resources.Res
+import golvia.shared.generated.resources.arrow_left
+import golvia.shared.generated.resources.arrow_right
+import golvia.shared.generated.resources.back
 import golvia.shared.generated.resources.email_address
 import golvia.shared.generated.resources.enter_your_email
 import golvia.shared.generated.resources.forget_password
@@ -47,6 +57,9 @@ fun ForgotPasswordScreen(
     popUp: () -> Unit
 ){
     DefaultScreenUI(
+        backIconToolbar = Icons.AutoMirrored.Default.ArrowBack,
+        titleText = stringResource(Res.string.back),
+        onClickStartIconToolbar = { popUp() },
         onRemoveHeadFromQueue = { },
     ) {
         val email by remember { mutableStateOf("") }
@@ -63,7 +76,6 @@ fun ForgotPasswordScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                Spacer_16dp()
                 Text(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     text = stringResource(Res.string.enter_your_email),
@@ -84,7 +96,11 @@ fun ForgotPasswordScreen(
                     )
                     Spacer_4dp()
                     OutlinedInputField(
-                        textFieldValue = mutableStateOf(email)
+                        textFieldValue = mutableStateOf(email),
+                        keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done,
+                        keyboardType = KeyboardType.Email,
+                    )
                     )
                 }
 

@@ -26,6 +26,7 @@ import com.golvia.ng.business.core.NetworkState
 import com.golvia.ng.business.core.ProgressBarState
 import com.golvia.ng.business.core.Queue
 import com.golvia.ng.business.core.UIComponent
+import com.golvia.ng.common.NavigationButton
 import golvia.shared.generated.resources.Res
 import golvia.shared.generated.resources.no_wifi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -42,7 +43,9 @@ fun DefaultScreenUI(
     progressBarState: ProgressBarState = ProgressBarState.Idle,
     networkState: NetworkState = NetworkState.Good,
     onTryAgain: () -> Unit = {},
+    titleText: String? = null,
     titleToolbar: String? = null,
+    backIconToolbar: ImageVector? = null,
     startIconToolbar: ImageVector? = null,
     endIconToolbar: ImageVector? = null,
     onClickStartIconToolbar: () -> Unit = {},
@@ -52,6 +55,18 @@ fun DefaultScreenUI(
 
     Scaffold(
         topBar = {
+                if(backIconToolbar != null){
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ){
+                        NavigationButton(
+                            imageVector = backIconToolbar,
+                            text = titleText.orEmpty(),
+                            onClick = { onClickStartIconToolbar() })
+                    }
+                }
             if (titleToolbar != null) {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
