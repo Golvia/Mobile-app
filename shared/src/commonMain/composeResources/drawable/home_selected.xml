@@ -8,11 +8,11 @@
         android:pathData="M0,0h24v24h-24z"/>
     <path
         android:pathData="M20.513,9.722L13.012,2.906C12.736,2.653 12.375,2.513 12,2.513C11.625,2.513 11.264,2.653 10.988,2.906L3.487,9.722C3.334,9.862 3.211,10.033 3.127,10.224C3.043,10.414 3,10.62 3,10.828V19.5C3,19.898 3.158,20.279 3.439,20.561C3.721,20.842 4.102,21 4.5,21H19.5C19.898,21 20.279,20.842 20.561,20.561C20.842,20.279 21,19.898 21,19.5V10.828C21,10.62 20.957,10.414 20.873,10.224C20.789,10.033 20.666,9.862 20.513,9.722Z"
-        android:fillColor="#FFFFFF"/>
+        android:fillColor="#333F4F"/>
     <path
         android:pathData="M8,17H16"
         android:strokeWidth="2"
-        android:fillColor="#00000000"
+        android:fillColor="#333F4F"
         android:strokeColor="#1D69D8"
         android:strokeLineCap="round"/>
   </group>

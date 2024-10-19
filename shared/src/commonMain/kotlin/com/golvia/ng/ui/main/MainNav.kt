@@ -1,9 +1,12 @@
 package com.golvia.ng.ui.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -15,17 +18,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.golvia.ng.common.ChangeStatusBarColors
+import com.golvia.ng.presentation.component.Spacer_8dp
 import com.golvia.ng.presentation.navigation.MainNavigation
 import com.golvia.ng.presentation.theme.DefaultNavigationBarItemTheme
+import com.golvia.ng.presentation.theme.LatoTypography
+import com.golvia.ng.presentation.theme.icon_default_color
 import com.golvia.ng.ui.main.home.HomeNav
 import com.golvia.ng.ui.main.message.MessageNav
 import com.golvia.ng.ui.main.network.NetworkNav
@@ -98,6 +107,8 @@ fun BottomNavigationUI(
             tonalElevation = 8.dp
         ) {
 
+            Spacer_8dp()
+
             val items = listOf(
                 MainNavigation.Home,
                 MainNavigation.Network,
@@ -105,19 +116,48 @@ fun BottomNavigationUI(
                 MainNavigation.Notification,
                 MainNavigation.Settings,
             )
-            items.forEach {
-                NavigationBarItem(label = { Text(text = it.title) },
+            items.forEach { item ->
+                NavigationBarItem(
+                    label = {},
                     colors = DefaultNavigationBarItemTheme(),
-                    selected = it.route == currentRoute,
+                    selected = item.route == currentRoute,
                     icon = {
-                        Icon(
-                            painterResource(if (it.route == currentRoute) it.selectedIcon else it.unSelectedIcon),
-                            it.title
-                        )
+                        Box(
+                            modifier = Modifier
+                                .wrapContentSize()
+                                .background(
+                                    if (item.route == currentRoute) MaterialTheme.colorScheme.primary
+                                    else Color.Transparent
+                                )
+                                .padding(horizontal = 4.dp, vertical = 4.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Icon(
+                                    painterResource(
+                                        if (item.route == currentRoute) item.selectedIcon
+                                        else item.unSelectedIcon
+                                    ),
+                                    contentDescription = item.title,
+                                    tint = if (item.route == currentRoute) Color.White else icon_default_color
+                                )
+                                Text(
+                                    style = TextStyle(
+                                        fontSize = 10.sp,
+                                        lineHeight = 12.sp,
+                                        fontFamily = LatoTypography().bodySmall.fontFamily
+                                    ),
+                                    text = item.title,
+                                    color = if (item.route == currentRoute) Color.White else icon_default_color.copy(0.7f)
+                                )
+                            }
+                        }
                     },
                     onClick = {
-                        if (currentRoute != it.route) {
-                            navController.navigate(it.route) {
+                        if (currentRoute != item.route) {
+                            navController.navigate(item.route) {
                                 navController.graph.startDestinationRoute?.let { route ->
                                     popUpTo(route) {
                                         saveState = true
@@ -127,8 +167,10 @@ fun BottomNavigationUI(
                                 restoreState = true
                             }
                         }
-                    })
+                    }
+                )
             }
+            Spacer_8dp()
         }
     }
 }
