@@ -20,6 +20,8 @@ sealed class HomeNavigation(
     )
 
     data object Home : HomeNavigation(route = "Home", arguments = emptyList())
+    data object Comment : HomeNavigation(route = "Comment", arguments = emptyList())
+    data object Profile : HomeNavigation(route = "Profile", arguments = emptyList())
 
 }
 

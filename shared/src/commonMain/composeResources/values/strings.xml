@@ -17,6 +17,6 @@
     <string name="create_account">Create a new Account</string>
     <string name="enter_your_email">Enter your email to reset password</string>
     <string name="forgot_password">Forget Password?</string>
-    <string name="back">Back</string>
+    <string name="back">back</string>
     <string name="password_error">Password must be at least 6 characters</string>
 </resources>

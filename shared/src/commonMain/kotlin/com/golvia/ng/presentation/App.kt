@@ -17,7 +17,9 @@ import coil3.fetch.NetworkFetcher
 import com.golvia.ng.common.Context
 import com.golvia.ng.di.appModule
 import com.golvia.ng.presentation.navigation.AppNavigation
+import com.golvia.ng.presentation.navigation.HomeNavigation
 import com.golvia.ng.ui.main.MainNav
+import com.golvia.ng.ui.main.home.HomeNav
 import com.golvia.ng.ui.splash.SplashNav
 import org.koin.compose.KoinApplication
 import presentation.theme.AppTheme
@@ -47,7 +49,7 @@ internal fun App(context: Context) {
                 .background(Color.White)) {
                 NavHost(
                     navController = navigator,
-                    startDestination = AppNavigation.Splash.route,
+                    startDestination = HomeNavigation.Home.route,
                     modifier = Modifier.fillMaxSize()
                 ){
                     composable(route = AppNavigation.Splash.route){
@@ -55,6 +57,10 @@ internal fun App(context: Context) {
                             navigator.popBackStack()
                             navigator.navigate(AppNavigation.Main.route)
                         })
+                    }
+
+                    composable(route = HomeNavigation.Home.route){
+                        HomeNav(logout = {})
                     }
 
                     composable(route = AppNavigation.Main.route) {

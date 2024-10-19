@@ -63,7 +63,7 @@ fun PasswordTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.White)
-                .border(1.dp, LightGray, MaterialTheme.shapes.small)
+                .border(1.dp,if (isError) red_error else  LightGray, MaterialTheme.shapes.small)
         ){
             TextField(
                 modifier = modifier,
