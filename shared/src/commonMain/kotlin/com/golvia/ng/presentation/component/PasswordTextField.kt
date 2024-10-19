@@ -112,8 +112,8 @@ fun PasswordTextField(
         if (isError){
             Text(
                 style = TextStyle(
-                    fontSize = 10.sp,
-                    lineHeight = 12.sp,
+                    fontSize = 12.sp,
+                    lineHeight = 14.sp,
                     fontFamily = LatoTypography().bodySmall.fontFamily
                 ),
                 text = errorValue.orEmpty(),
