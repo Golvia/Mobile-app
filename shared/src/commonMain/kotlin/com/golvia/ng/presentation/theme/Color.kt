@@ -33,6 +33,7 @@ val progress_color = Color(0xFF3EC28B)
 val medium_text_color = Color(0xFF2B2E31B8)
 val screen_colour = Color(0xFFF1F3F9)
 val faint_red = Color(0xFFEC275F)
+val gray_100 = Color(0xFFA9A9A9)
 
 
 

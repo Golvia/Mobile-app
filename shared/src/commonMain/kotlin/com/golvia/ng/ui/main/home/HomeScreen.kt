@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -22,13 +23,16 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.unit.dp
+import com.golvia.ng.businessLayer.domain.createDummyFeedsData
 import com.golvia.ng.presentation.component.CircularImageView
 import com.golvia.ng.presentation.component.DefaultScreenUI
 import com.golvia.ng.presentation.component.OutlinedRoundedButtonWithNoIcon
+import com.golvia.ng.presentation.component.PostContent
 import com.golvia.ng.presentation.component.ProfileCompletionCard
 import com.golvia.ng.presentation.component.SearchBox
 import com.golvia.ng.presentation.component.Spacer_12dp
 import com.golvia.ng.presentation.component.RoundedFlatButton
+import com.golvia.ng.presentation.component.Spacer_16dp
 import com.golvia.ng.presentation.theme.faint_red
 import com.golvia.ng.presentation.theme.gold_color
 import com.golvia.ng.presentation.theme.light_gold
@@ -119,8 +123,8 @@ fun HomeScreen(
            Column(
                modifier = Modifier
                    .fillMaxSize()
-                   .padding(start = 16.dp, end = 16.dp)
-                   .verticalScroll(rememberScrollState())
+                   .padding(start = 16.dp, end = 16.dp, bottom = 42.dp)
+                  // .verticalScroll(rememberScrollState())
                    .background(screen_colour),
                verticalArrangement = Arrangement.Top,
                horizontalAlignment = Alignment.Start
@@ -161,6 +165,21 @@ fun HomeScreen(
                        }
                    )
                }
+               Spacer_16dp()
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+
+                items(createDummyFeedsData().size, key = { it }) {
+                    PostContent(
+                        modifier = Modifier.fillMaxSize().padding(top = 8.dp),
+                        feedsData = createDummyFeedsData()[it]
+                    )
+                }
+
+            }
            }
         }
     }
