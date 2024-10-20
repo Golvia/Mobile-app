@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.unit.dp
+import com.golvia.ng.businessLayer.domain.FeedsData
 import com.golvia.ng.businessLayer.domain.createDummyFeedsData
 import com.golvia.ng.presentation.component.CircularImageView
 import com.golvia.ng.presentation.component.DefaultScreenUI
@@ -52,6 +53,7 @@ import org.jetbrains.compose.resources.stringResource
 fun HomeScreen(
     navigateToComment: () -> Unit = {},
     navigateToProfile: () -> Unit = {},
+    onNavigateToDetail: (FeedsData) -> Unit = {}
 ){
 
     val searchValue = remember { mutableStateOf("") }
@@ -171,7 +173,10 @@ fun HomeScreen(
                     PostContent(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp),
+                            .padding(top = 8.dp)
+                            .clickable {
+                                onNavigateToDetail(createDummyFeedsData()[it])
+                            },
                         feedsData = createDummyFeedsData()[it],
                         onLikeClick = {},
                         onCommentClick = {},

@@ -1,9 +1,13 @@
 package com.golvia.ng.businessLayer.domain
 
+import kotlinx.serialization.Serializable
+
+
 /**
  * davidsunday
  */
 
+@Serializable
 data class FeedsData(
     val  id: Int?,
     val profileImageUrl: String?,
@@ -17,16 +21,19 @@ data class FeedsData(
     val share: List<Shares>?
 )
 
+@Serializable
 data class Likes(
     val id: Int?,
     val likes: Int?
 )
 
+@Serializable
 data class Comments(
     val id: Int?,
     val comment: String?,
 )
 
+@Serializable
 data class Shares(
     val id: Int?,
     val share: String?

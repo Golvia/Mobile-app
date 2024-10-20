@@ -51,6 +51,7 @@ import org.jetbrains.compose.resources.painterResource
 fun PostContent(
     modifier: Modifier = Modifier,
     feedsData: FeedsData? = null,
+    isFromDetail: Boolean = false,
     onLikeClick: () -> Unit = {},
     onCommentClick: () -> Unit = {},
     onShareClick: () -> Unit = {}
@@ -185,7 +186,7 @@ fun PostContent(
                 Row(
                     modifier = Modifier
                         .clickable {
-                            onLikeClick()
+                            onCommentClick()
                         },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
@@ -210,7 +211,7 @@ fun PostContent(
                 Row(
                     modifier = Modifier
                         .clickable {
-                            onLikeClick()
+                            onShareClick()
                         },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
@@ -238,56 +239,58 @@ fun PostContent(
                 thickness = 0.5.dp)
 
             Spacer_8dp()
-            Row(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 12.dp, end = 12.dp, bottom = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ){
-                CircularImageView(
-                    image = painterResource(Res.drawable.sample_profile_image),
-                    borderColor = LightGray,
-                    borderWidth = 0.5.dp,
-                    size = 40.dp,
-                )
+           if (!isFromDetail){
+               Row(
+                   modifier = Modifier.fillMaxWidth()
+                       .padding(start = 12.dp, end = 12.dp, bottom = 8.dp),
+                   verticalAlignment = Alignment.CenterVertically,
+                   horizontalArrangement = Arrangement.SpaceBetween
+               ){
+                   CircularImageView(
+                       image = painterResource(Res.drawable.sample_profile_image),
+                       borderColor = LightGray,
+                       borderWidth = 0.5.dp,
+                       size = 40.dp,
+                   )
 
-                Spacer_4dp()
-                RoundedFlatPostButton(
-                    modifier = Modifier.weight(0.4f),
-                    text = "Like",
-                    tintColor = Black,
-                    containerColor = Color(0xFFF6F9FF),
-                    icon = painterResource(Res.drawable.ic_like_small_icon),
-                    onClick = {
-                        onLikeClick()
-                        // Todo navigate to post screen
-                    }
-                )
-                Spacer_4dp()
-                RoundedFlatPostButton(
-                    modifier = Modifier.weight(0.6f),
-                    text = "Comment",
-                    tintColor = Black,
-                    containerColor = Color(0xFFF6F9FF),
-                    icon = painterResource(Res.drawable.ic_comment_icon),
-                    onClick = {
-                        onCommentClick()
-                        // Todo navigate to post screen
-                    }
-                )
-                Spacer_4dp()
-                RoundedFlatPostButton(
-                    modifier = Modifier.weight(0.6f).width(50.dp),
-                    text = "Share",
-                    tintColor = Black,
-                    containerColor = Color(0xFFF6F9FF),
-                    icon = painterResource(Res.drawable.ic_share_icon),
-                    onClick = {
-                        onShareClick()
-                        // Todo navigate to post screen
-                    }
-                )
-            }
+                   Spacer_4dp()
+                   RoundedFlatPostButton(
+                       modifier = Modifier.weight(0.4f),
+                       text = "Like",
+                       tintColor = Black,
+                       containerColor = Color(0xFFF6F9FF),
+                       icon = painterResource(Res.drawable.ic_like_small_icon),
+                       onClick = {
+                           onLikeClick()
+                           // Todo navigate to post screen
+                       }
+                   )
+                   Spacer_4dp()
+                   RoundedFlatPostButton(
+                       modifier = Modifier.weight(0.6f),
+                       text = "Comment",
+                       tintColor = Black,
+                       containerColor = Color(0xFFF6F9FF),
+                       icon = painterResource(Res.drawable.ic_comment_icon),
+                       onClick = {
+                           onCommentClick()
+                           // Todo navigate to post screen
+                       }
+                   )
+                   Spacer_4dp()
+                   RoundedFlatPostButton(
+                       modifier = Modifier.weight(0.6f).width(50.dp),
+                       text = "Share",
+                       tintColor = Black,
+                       containerColor = Color(0xFFF6F9FF),
+                       icon = painterResource(Res.drawable.ic_share_icon),
+                       onClick = {
+                           onShareClick()
+                           // Todo navigate to post screen
+                       }
+                   )
+               }
+           }
 
         }
 
