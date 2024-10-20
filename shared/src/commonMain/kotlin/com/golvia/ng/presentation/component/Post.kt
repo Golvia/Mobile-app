@@ -1,5 +1,6 @@
 package com.golvia.ng.presentation.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,14 +20,18 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.golvia.ng.businessLayer.domain.FeedsData
 import com.golvia.ng.presentation.theme.LatoTypography
 import com.golvia.ng.presentation.theme.card_background
+import com.golvia.ng.presentation.theme.desc_text_color
 import com.golvia.ng.presentation.theme.gray_100
 import com.golvia.ng.presentation.theme.gray_50
 import golvia.shared.generated.resources.Res
+import golvia.shared.generated.resources.ic_globe
+import golvia.shared.generated.resources.sample_post_image
 import golvia.shared.generated.resources.sample_profile_image
 import org.jetbrains.compose.resources.painterResource
 
@@ -54,7 +59,7 @@ fun PostContent(
     ){
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         )
@@ -97,6 +102,44 @@ fun PostContent(
                         fontFamily = LatoTypography().bodyMedium.fontFamily
                     )
                 }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(Res.drawable.ic_globe),
+                        contentDescription = "globe",
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
+            }
+
+            Column(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = feedsData?.description.orEmpty(),
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        lineHeight = 19.sp,
+                        fontWeight = FontWeight(400),
+                        color = desc_text_color
+                    ),
+                    textAlign = TextAlign.Justify,
+                    fontFamily = LatoTypography().headlineLarge.fontFamily
+                )
+                Spacer_12dp()
+                SquareImageView(
+                    image = painterResource(Res.drawable.sample_post_image),
+                    borderColor = LightGray,
+                    borderWidth = 0.5.dp,
+                    size = 128.dp,
+                )
             }
 
         }

@@ -60,9 +60,10 @@ fun createDummyFeedsData(): List<FeedsData> {
             id = index,
             profileImageUrl = "https://example.com/profile_$index.jpg",
             profileName = "User $index",
-            agent = "Agent $index",
+            agent = "Agent - top scout",
             type = if (index % 2 == 0) "Post" else "Story",
-            description = "This is a description for post $index.",
+            description = "Delight to get a young talented football joining\n" +
+                    "wolves FC for 2024/2025 season on-going trials $index.",
             descImage = "https://example.com/image_$index.jpg",
             likes = dummyLikes.take(index % 3 + 1),
             comments = dummyComments.take(index % 3 + 1),
