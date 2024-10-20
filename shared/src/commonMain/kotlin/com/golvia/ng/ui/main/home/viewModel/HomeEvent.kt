@@ -1,7 +1,7 @@
 package com.golvia.ng.ui.main.home.viewModel
 
-import com.golvia.ng.business.core.NetworkState
-import com.golvia.ng.business.core.UIComponent
+import com.golvia.ng.businessLayer.core.NetworkState
+import com.golvia.ng.businessLayer.core.UIComponent
 
 sealed class HomeEvent {
 

@@ -22,10 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.golvia.ng.business.core.NetworkState
-import com.golvia.ng.business.core.ProgressBarState
-import com.golvia.ng.business.core.Queue
-import com.golvia.ng.business.core.UIComponent
+import com.golvia.ng.businessLayer.core.NetworkState
+import com.golvia.ng.businessLayer.core.ProgressBarState
+import com.golvia.ng.businessLayer.core.Queue
+import com.golvia.ng.businessLayer.core.UIComponent
 import com.golvia.ng.common.NavigationButton
 import golvia.shared.generated.resources.Res
 import golvia.shared.generated.resources.no_wifi

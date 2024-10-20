@@ -1,9 +1,9 @@
 package com.golvia.ng.ui.main.home.viewModel
 
-import com.golvia.ng.business.core.NetworkState
-import com.golvia.ng.business.core.ProgressBarState
-import com.golvia.ng.business.core.Queue
-import com.golvia.ng.business.core.UIComponent
+import com.golvia.ng.businessLayer.core.NetworkState
+import com.golvia.ng.businessLayer.core.ProgressBarState
+import com.golvia.ng.businessLayer.core.Queue
+import com.golvia.ng.businessLayer.core.UIComponent
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone

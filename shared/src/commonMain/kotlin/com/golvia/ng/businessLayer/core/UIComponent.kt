@@ -1,4 +1,4 @@
-package com.golvia.ng.business.core
+package com.golvia.ng.businessLayer.core
 
 
 sealed class UIComponent {

@@ -43,7 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.golvia.ng.business.core.ProgressBarState
+import com.golvia.ng.businessLayer.core.ProgressBarState
 import com.golvia.ng.presentation.theme.BorderColor
 import com.golvia.ng.presentation.theme.DefaultButtonTheme
 import com.golvia.ng.presentation.theme.DefaultButtonWithBorderPrimaryTheme
