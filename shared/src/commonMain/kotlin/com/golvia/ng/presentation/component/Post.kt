@@ -51,7 +51,9 @@ import org.jetbrains.compose.resources.painterResource
 fun PostContent(
     modifier: Modifier = Modifier,
     feedsData: FeedsData? = null,
-    onLikeClick: () -> Unit = {}
+    onLikeClick: () -> Unit = {},
+    onCommentClick: () -> Unit = {},
+    onShareClick: () -> Unit = {}
 ){
     val cornerRadius = RoundedCornerShape(8.dp)
     Card(
@@ -160,10 +162,6 @@ fun PostContent(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(
-                    modifier = Modifier
-                        .clickable {
-                            onLikeClick()
-                        },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
@@ -261,6 +259,7 @@ fun PostContent(
                     containerColor = Color(0xFFF6F9FF),
                     icon = painterResource(Res.drawable.ic_like_small_icon),
                     onClick = {
+                        onLikeClick()
                         // Todo navigate to post screen
                     }
                 )
@@ -272,6 +271,7 @@ fun PostContent(
                     containerColor = Color(0xFFF6F9FF),
                     icon = painterResource(Res.drawable.ic_comment_icon),
                     onClick = {
+                        onCommentClick()
                         // Todo navigate to post screen
                     }
                 )
@@ -283,6 +283,7 @@ fun PostContent(
                     containerColor = Color(0xFFF6F9FF),
                     icon = painterResource(Res.drawable.ic_share_icon),
                     onClick = {
+                        onShareClick()
                         // Todo navigate to post screen
                     }
                 )

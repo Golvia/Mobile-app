@@ -16,10 +16,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.golvia.ng.businessLayer.util.validateEmail
 import com.golvia.ng.common.ChangeStatusBarColors
 import com.golvia.ng.presentation.component.DefaultScreenUI
 import com.golvia.ng.presentation.component.DefaultText
@@ -52,7 +51,7 @@ import golvia.shared.generated.resources.Res
 import golvia.shared.generated.resources.continue_with_google
 import golvia.shared.generated.resources.create_account
 import golvia.shared.generated.resources.email_address
-import golvia.shared.generated.resources.forgot_account
+import golvia.shared.generated.resources.email_error
 import golvia.shared.generated.resources.have_account
 import golvia.shared.generated.resources.ic_google_icon
 import golvia.shared.generated.resources.ic_logo_header
@@ -82,6 +81,11 @@ fun RegisterScreen(
         val email = remember { mutableStateOf("") }
         val password = remember { mutableStateOf("") }
         val isPasswordError = remember { mutableStateOf(false) }
+        val isEmailError = remember { mutableStateOf(false) }
+        val passWordError = remember { mutableStateOf("") }
+        val emailError = remember { mutableStateOf("") }
+        passWordError.value = stringResource(Res.string.password_error)
+        emailError.value = stringResource(Res.string.email_error)
 
         Box(
             modifier = Modifier
@@ -141,8 +145,11 @@ fun RegisterScreen(
                     )
                     Spacer_4dp()
                     OutlinedInputField(
+                        isError = isEmailError.value,
+                        errorValue = emailError.value,
                         textFieldValue = email.value,
                         onValueChange = {
+                            isEmailError.value = false
                             email.value = it
                         }
                     )
@@ -153,9 +160,10 @@ fun RegisterScreen(
                     Spacer_4dp()
                     PasswordTextField(
                          isError = isPasswordError.value,
-                        errorValue = stringResource(Res.string.password_error),
+                         errorValue = passWordError.value,
                         value = password.value,
                         onValueChange = {
+                            isPasswordError.value = false
                             password.value = it
                         },
                         modifier = Modifier.fillMaxWidth(),
@@ -179,11 +187,15 @@ fun RegisterScreen(
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)
                 ) {
-                    if (password.value.length < 6) {
+                    if (!validateEmail(email.value)){
+                        isEmailError.value = true
+                        return@NormalRoundedButton
+                    }else if (password.value.length < 6) {
                         isPasswordError.value = true
                         return@NormalRoundedButton
                     } else {
                         isPasswordError.value = false
+                        isEmailError.value = false
                         // Todo navigate to main when auth is done
                         navigateToMain()
                     }

@@ -49,7 +49,7 @@ internal fun App(context: Context) {
                 .background(Color.White)) {
                 NavHost(
                     navController = navigator,
-                    startDestination = HomeNavigation.Home.route,
+                    startDestination = AppNavigation.Splash.route,
                     modifier = Modifier.fillMaxSize()
                 ){
                     composable(route = AppNavigation.Splash.route){

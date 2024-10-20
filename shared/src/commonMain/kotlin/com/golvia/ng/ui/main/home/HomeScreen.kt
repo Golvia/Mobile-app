@@ -1,6 +1,7 @@
 package com.golvia.ng.ui.main.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -124,7 +125,7 @@ fun HomeScreen(
            Column(
                modifier = Modifier
                    .fillMaxSize()
-                   .padding(start = 16.dp, end = 16.dp, bottom = 42.dp)
+                   .padding(start = 16.dp, end = 16.dp)
                   // .verticalScroll(rememberScrollState())
                    .background(screen_colour),
                verticalArrangement = Arrangement.Top,
@@ -168,7 +169,10 @@ fun HomeScreen(
                }
                Spacer_8dp()
             LazyColumn(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth()
+                    .clickable {
+
+                    },
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
@@ -177,9 +181,9 @@ fun HomeScreen(
                     PostContent(
                         modifier = Modifier.fillMaxSize().padding(top = 8.dp),
                         feedsData = createDummyFeedsData()[it],
-                        onLikeClick = {
-
-                        }
+                        onLikeClick = {},
+                        onCommentClick = {},
+                        onShareClick = {}
                     )
                 }
 

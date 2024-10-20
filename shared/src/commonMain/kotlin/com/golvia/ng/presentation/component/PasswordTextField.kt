@@ -74,7 +74,9 @@ fun PasswordTextField(
                 shape = MaterialTheme.shapes.small,
                 readOnly = readOnly,
                 value = value,
-                onValueChange = { onValueChange(it) },
+                onValueChange = {
+                    onValueChange(it)
+                                },
                 trailingIcon = {
                     IconButton(onClick = {
                         if (enabled) {
