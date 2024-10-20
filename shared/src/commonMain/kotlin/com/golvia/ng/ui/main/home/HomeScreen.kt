@@ -118,73 +118,67 @@ fun HomeScreen(
                 }
             }
 
-           Column(
-               modifier = Modifier
-                   .fillMaxSize()
-                   .padding(start = 16.dp, end = 16.dp)
-                  // .verticalScroll(rememberScrollState())
-                   .background(screen_colour),
-               verticalArrangement = Arrangement.Top,
-               horizontalAlignment = Alignment.Start
-           ){
-               Spacer_12dp()
-               ProfileCompletionCard(
-                   progress = 0.4f,
-                   description = "Complete your profile to\n" +
-                           "start using the golvia app.",
-                   buttonText = "Complete"
-               ){
-                   // Todo navigate to profile screen
-               }
-
-               Spacer(modifier = Modifier.padding(top = 12.dp))
-               Row(
-                   modifier = Modifier
-                       .fillMaxWidth(),
-                   horizontalArrangement = Arrangement.SpaceBetween,
-                   verticalAlignment = Alignment.CenterVertically
-               ) {
-                   RoundedFlatButton(
-                       modifier = Modifier.weight(0.6f),
-                       text = "Start a post",
-                       icon = painterResource(Res.drawable.ic_post_icon),
-                       onClick = {
-                           // Todo navigate to post screen
-                       }
-                   )
-
-                   RoundedFlatButton(
-                       modifier = Modifier.padding(start = 4.dp).weight(0.4f),
-                       text = "Go live",
-                       tintColor = faint_red,
-                       icon = painterResource(Res.drawable.ic_video_icon),
-                       onClick = {
-                           // Todo navigate to post screen
-                       }
-                   )
-               }
-               Spacer_8dp()
             LazyColumn(
-                modifier = Modifier.fillMaxWidth()
-                    .clickable {
-
-                    },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(start = 16.dp, end = 16.dp)
+                    .background(screen_colour),
                 verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ){
+                horizontalAlignment = Alignment.Start
+            ) {
+                item {
+                    Spacer_12dp()
+                    ProfileCompletionCard(
+                        progress = 0.4f,
+                        description = "Complete your profile to\nstart using the golvia app.",
+                        buttonText = "Complete"
+                    ) {
+                        // Todo navigate to profile screen
+                    }
+                    Spacer(modifier = Modifier.padding(top = 12.dp))
+                }
+
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RoundedFlatButton(
+                            modifier = Modifier.weight(0.6f),
+                            text = "Start a post",
+                            icon = painterResource(Res.drawable.ic_post_icon),
+                            onClick = {
+                                // Todo navigate to post screen
+                            }
+                        )
+
+                        RoundedFlatButton(
+                            modifier = Modifier.padding(start = 4.dp).weight(0.4f),
+                            text = "Go live",
+                            tintColor = faint_red,
+                            icon = painterResource(Res.drawable.ic_video_icon),
+                            onClick = {
+                                // Todo navigate to post screen
+                            }
+                        )
+                    }
+                    Spacer_8dp()
+                }
 
                 items(createDummyFeedsData().size, key = { it }) {
                     PostContent(
-                        modifier = Modifier.fillMaxSize().padding(top = 8.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
                         feedsData = createDummyFeedsData()[it],
                         onLikeClick = {},
                         onCommentClick = {},
                         onShareClick = {}
                     )
                 }
-
             }
-           }
         }
     }
 
