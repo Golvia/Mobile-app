@@ -26,6 +26,8 @@ val gray_20 = Color(0xFF2C302F)
 val default_black = Color(0xFF1A1A1A)
 val icon_default_color = Color(0xFF333F4F)
 val red_error = Color(0xFFFF0000)
+val gold_color = Color(0xFFCE7612)
+val light_gold = Color(0xFFFDF4E3)
 
 
 

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -41,6 +42,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.golvia.ng.business.core.ProgressBarState
@@ -240,6 +242,48 @@ fun NormalRoundedButton(
                 color = if (enabled) textColor else Color.Gray,
                 textAlign = TextAlign.Center,
             )
+        )
+    }
+}
+
+@Composable
+fun OutlinedRoundedButtonWithNoIcon(
+    modifier: Modifier = Modifier,
+    textButton: String,
+    textColor: Color,
+    borderColor: Color,
+    containerColor: Color,
+    enabled: Boolean,
+    textColorDisabled: Color = LightGray,
+    borderColorDisabled: Color = LightGray,
+    containerColorDisabled: Color = White,
+    onClick: () -> Unit
+) {
+    Button(
+        modifier = modifier
+            .fillMaxWidth(0.5f)
+            .fillMaxHeight(0.6f),
+        enabled = enabled,
+        shape = RoundedCornerShape(10.dp),
+        onClick = onClick,
+        elevation = null,
+        border = BorderStroke(1.dp, if (enabled) borderColor else borderColorDisabled),
+        colors = ButtonDefaults.outlinedButtonColors(
+            if (enabled) containerColor else containerColorDisabled
+        ),
+        contentPadding = PaddingValues(horizontal = 0.dp, vertical = 4.dp)
+    ) {
+        Text(
+            text = textButton,
+            style = TextStyle(
+                fontSize = 12.sp,
+                lineHeight = 14.sp,
+                fontFamily = LatoTypography().bodyLarge.fontFamily,
+                fontWeight = FontWeight(700),
+                color = if (enabled) textColor else textColorDisabled,
+                textAlign = TextAlign.Center
+            ),
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

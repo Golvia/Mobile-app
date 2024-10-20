@@ -43,6 +43,7 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun SearchBox(
+    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
     onSearchExecute: () -> Unit,
@@ -51,10 +52,10 @@ fun SearchBox(
     val cornerRadius = RoundedCornerShape(percent = 50)
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 8.dp)
-            .fillMaxWidth(0.6f)
-            .fillMaxHeight(0.85f)
+            .fillMaxWidth(0.5f)
+            .fillMaxHeight(0.8f)
             .border(
                 width = 1.dp,
                 color = LightGray,
@@ -76,42 +77,41 @@ fun SearchBox(
                 }
         )
 
-        Box(
-            modifier = Modifier
-                .background(Color.White, cornerRadius)
-                .fillMaxSize(),
-            contentAlignment = Alignment.CenterStart
-        ) {
-            TextField(
-                value = value,
-                onValueChange = onValueChange,
-                placeholder = {
-                    Text(
-                        text = "Search",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            lineHeight = 14.sp,
-                            fontWeight = FontWeight(300),
-                            fontFamily = LatoTypography().bodySmall.fontFamily
-                        ),
-                        color = gray_50
-                    )
-                },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Search,
-                    keyboardType = KeyboardType.Text
-                ),
-                keyboardActions = KeyboardActions(
-                    onSearch = {
-                        onSearchExecute()
-                        keyboardController?.hide()
-                    }
-                ),
-                singleLine = true,
-                maxLines = 1,
-                colors = TextFieldWithTransparentTheme()
-            )
-        }
+        TextField(
+            value = value,
+            onValueChange = onValueChange,
+            placeholder = {
+                Text(
+                    text = "Search",
+                    style = TextStyle(
+                        fontSize = 12.sp,
+                        lineHeight = 10.sp,
+                        fontWeight = FontWeight(300),
+                        fontFamily = LatoTypography().bodySmall.fontFamily
+                    ),
+                    color = gray_50
+                )
+            },
+            textStyle = TextStyle(
+                fontSize = 12.sp,
+                fontWeight = FontWeight(300),
+                fontFamily = LatoTypography().bodySmall.fontFamily,
+                color = Black
+            ),
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Search,
+                keyboardType = KeyboardType.Text
+            ),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    onSearchExecute()
+                    keyboardController?.hide()
+                }
+            ),
+            singleLine = true,
+            maxLines = 1,
+            colors = TextFieldWithTransparentTheme()
+        )
 
     }
 }
