@@ -28,6 +28,9 @@ val icon_default_color = Color(0xFF333F4F)
 val red_error = Color(0xFFFF0000)
 val gold_color = Color(0xFFCE7612)
 val light_gold = Color(0xFFFDF4E3)
+val card_background = Color(0xFFDDEBFD)
+val progress_color = Color(0xFF3EC28B)
+val medium_text_color = Color(0xFF2B2E31B8)
 
 
 

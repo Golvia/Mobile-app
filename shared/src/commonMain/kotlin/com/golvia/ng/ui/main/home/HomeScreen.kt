@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.golvia.ng.presentation.component.CircularImageView
 import com.golvia.ng.presentation.component.DefaultScreenUI
 import com.golvia.ng.presentation.component.OutlinedRoundedButtonWithNoIcon
+import com.golvia.ng.presentation.component.ProfileCompletionCard
 import com.golvia.ng.presentation.component.SearchBox
 import com.golvia.ng.presentation.component.Spacer_12dp
 import com.golvia.ng.presentation.component.Spacer_16dp
@@ -109,6 +112,25 @@ fun HomeScreen(
                     )
                 }
             }
+
+           Column(
+               modifier = Modifier
+                   .fillMaxSize()
+                   .padding(start = 16.dp, end = 16.dp)
+                   .verticalScroll(rememberScrollState()),
+               verticalArrangement = Arrangement.Top,
+               horizontalAlignment = Alignment.CenterHorizontally
+           ){
+               Spacer_12dp()
+               ProfileCompletionCard(
+                   progress = 0.4f,
+                   description = "Complete your profile to\n" +
+                           "start using the golvia app.",
+                   buttonText = "Complete"
+               ){
+                   // Todo navigate to profile screen
+               }
+           }
         }
     }
 
