@@ -175,7 +175,10 @@ fun HomeScreen(
                 items(createDummyFeedsData().size, key = { it }) {
                     PostContent(
                         modifier = Modifier.fillMaxSize().padding(top = 8.dp),
-                        feedsData = createDummyFeedsData()[it]
+                        feedsData = createDummyFeedsData()[it],
+                        onLikeClick = {
+
+                        }
                     )
                 }
 

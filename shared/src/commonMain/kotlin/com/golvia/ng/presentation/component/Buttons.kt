@@ -292,23 +292,25 @@ fun RoundedFlatButton(
     text: String = "Start a post",
     icon: Painter,
     tintColor: Color = PrimaryColor,
+    containerColor: Color = White,
+    isFromPost: Boolean = false,
     onClick: () -> Unit
 ) {
     Button(
         onClick = { onClick() },
         shape = RoundedCornerShape(50),
         colors = ButtonDefaults.buttonColors(
-            containerColor = White,
-            contentColor = Color.Gray
+            containerColor = containerColor,
+            contentColor = containerColor
         ),
         modifier = modifier
-            .height(50.dp)
+            .height(if(isFromPost) 32.dp else 50.dp)
             .padding(horizontal = 2.dp),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = if (isFromPost) Arrangement.Center else Arrangement.Start,
             modifier = Modifier.fillMaxWidth()
         ) {
             Icon(
@@ -323,7 +325,57 @@ fun RoundedFlatButton(
             Text(
                 text = text,
                 style = TextStyle(
-                    fontSize = 14.sp,
+                    fontSize = if (isFromPost) 10.sp else 14.sp,
+                    lineHeight = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.Black
+                )
+            )
+        }
+    }
+}
+
+@Composable
+fun RoundedFlatPostButton(
+    modifier: Modifier = Modifier,
+    text: String = "Start a post",
+    icon: Painter,
+    tintColor: Color = PrimaryColor,
+    containerColor: Color = White,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = { onClick() },
+        shape = RoundedCornerShape(50),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = containerColor,
+            contentColor = containerColor
+        ),
+        modifier = modifier
+            .fillMaxWidth(0.5f)
+            .fillMaxHeight(0.6f)
+            .padding(horizontal = 2.dp),
+        elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp),
+        contentPadding = PaddingValues(horizontal = 0.dp, vertical = 4.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Icon(
+                painter = icon,
+                contentDescription = "Icon",
+                tint = tintColor,
+                modifier = Modifier.size(18.dp)
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Text(
+                text = text,
+                style = TextStyle(
+                    fontSize =  10.sp,
                     lineHeight = 14.sp,
                     fontWeight = FontWeight.Normal,
                     color = Color.Black

@@ -35,10 +35,12 @@ val screen_colour = Color(0xFFF1F3F9)
 val faint_red = Color(0xFFEC275F)
 val gray_100 = Color(0xFFA9A9A9)
 val desc_text_color = Color(0xFF504C4C)
+val gray_5 = Color(0xFF7F7F7F)
+val gray_10 = Color(0xFF1A1A1A8)
 
 
 
-val grey_050 = Color(0xFFfafafa) // Use with black text
-val grey_700 = Color(0xFF616161) // Use with white text
+val grey_050 = Color(0xFFfafafa)
+val grey_700 = Color(0xFF616161)
 
 val orange_400 = Color(0xFFffa726) // Use with black text
