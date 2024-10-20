@@ -4,6 +4,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.golvia.ng.businessLayer.domain.FeedsData
+import com.golvia.ng.businessLayer.util.urlEncode
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -39,16 +40,5 @@ sealed class HomeNavigation(
             return "Detail/${json.urlEncode()}"
         }
     }
-}
-
-fun String.urlEncode(): String {
-    val encoded = StringBuilder()
-    for (char in this) {
-        when {
-            char.isLetterOrDigit() -> encoded.append(char)
-            else -> encoded.append("%${char.code.toString(16).uppercase()}")
-        }
-    }
-    return encoded.toString()
 }
 
