@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -38,11 +39,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.golvia.ng.business.core.ProgressBarState
@@ -50,7 +48,7 @@ import com.golvia.ng.presentation.theme.BorderColor
 import com.golvia.ng.presentation.theme.DefaultButtonTheme
 import com.golvia.ng.presentation.theme.DefaultButtonWithBorderPrimaryTheme
 import com.golvia.ng.presentation.theme.LatoTypography
-import com.golvia.ng.presentation.theme.gray_50
+import com.golvia.ng.presentation.theme.PrimaryColor
 
 val DEFAULT__BUTTON_SIZE = 50.dp
 val DEFAULT__BUTTON_SIZE_EXTRA = 60.dp
@@ -285,5 +283,52 @@ fun OutlinedRoundedButtonWithNoIcon(
             ),
             modifier = Modifier.fillMaxWidth()
         )
+    }
+}
+
+@Composable
+fun RoundedFlatButton(
+    modifier: Modifier = Modifier,
+    text: String = "Start a post",
+    icon: Painter,
+    tintColor: Color = PrimaryColor,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = { onClick() },
+        shape = RoundedCornerShape(50),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = White,
+            contentColor = Color.Gray
+        ),
+        modifier = modifier
+            .height(50.dp)
+            .padding(horizontal = 2.dp),
+        elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Icon(
+                painter = icon,
+                contentDescription = "Icon",
+                tint = tintColor,
+                modifier = Modifier.size(18.dp)
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Text(
+                text = text,
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    lineHeight = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.Black
+                )
+            )
+        }
     }
 }

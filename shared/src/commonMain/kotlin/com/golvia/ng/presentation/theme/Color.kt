@@ -31,6 +31,8 @@ val light_gold = Color(0xFFFDF4E3)
 val card_background = Color(0xFFDDEBFD)
 val progress_color = Color(0xFF3EC28B)
 val medium_text_color = Color(0xFF2B2E31B8)
+val screen_colour = Color(0xFFF1F3F9)
+val faint_red = Color(0xFFEC275F)
 
 
 
