@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,10 +28,9 @@ import com.golvia.ng.presentation.component.DefaultScreenUI
 import com.golvia.ng.presentation.component.OutlinedRoundedButtonWithNoIcon
 import com.golvia.ng.presentation.component.PostContent
 import com.golvia.ng.presentation.component.ProfileCompletionCard
+import com.golvia.ng.presentation.component.RoundedFlatButton
 import com.golvia.ng.presentation.component.SearchBox
 import com.golvia.ng.presentation.component.Spacer_12dp
-import com.golvia.ng.presentation.component.RoundedFlatButton
-import com.golvia.ng.presentation.component.Spacer_16dp
 import com.golvia.ng.presentation.component.Spacer_8dp
 import com.golvia.ng.presentation.theme.faint_red
 import com.golvia.ng.presentation.theme.gold_color
@@ -41,7 +38,6 @@ import com.golvia.ng.presentation.theme.light_gold
 import com.golvia.ng.presentation.theme.screen_colour
 import golvia.shared.generated.resources.Res
 import golvia.shared.generated.resources.go_premium
-import golvia.shared.generated.resources.ic_logo
 import golvia.shared.generated.resources.ic_post_icon
 import golvia.shared.generated.resources.ic_video_icon
 import golvia.shared.generated.resources.sample_profile_image

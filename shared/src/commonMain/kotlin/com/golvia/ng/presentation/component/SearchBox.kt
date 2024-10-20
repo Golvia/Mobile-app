@@ -1,16 +1,15 @@
 package com.golvia.ng.presentation.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,7 +19,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -64,14 +62,15 @@ fun SearchBox(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
-        Spacer_8dp()
+        Spacer(modifier = Modifier.width(8.dp))
+
         Icon(
             painter = painterResource(Res.drawable.search),
             contentDescription = null,
             tint = Black,
             modifier = Modifier
                 .size(20.dp)
-                .noRippleClickable {
+                .clickable {
                     onSearchExecute()
                     keyboardController?.hide()
                 }
@@ -87,9 +86,9 @@ fun SearchBox(
                         fontSize = 12.sp,
                         lineHeight = 10.sp,
                         fontWeight = FontWeight(300),
-                        fontFamily = LatoTypography().bodySmall.fontFamily
-                    ),
-                    color = gray_50
+                        fontFamily = LatoTypography().bodySmall.fontFamily,
+                        color = gray_50
+                    )
                 )
             },
             textStyle = TextStyle(
@@ -110,8 +109,9 @@ fun SearchBox(
             ),
             singleLine = true,
             maxLines = 1,
-            colors = TextFieldWithTransparentTheme()
+            colors = TextFieldWithTransparentTheme(),
+            modifier = Modifier
+                .weight(1f)
         )
-
     }
 }
