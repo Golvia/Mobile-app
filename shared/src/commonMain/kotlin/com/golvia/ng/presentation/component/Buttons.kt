@@ -375,7 +375,7 @@ fun RoundedFlatPostButton(
             Text(
                 text = text,
                 style = TextStyle(
-                    fontSize =  10.sp,
+                    fontSize =  14.sp,
                     lineHeight = 14.sp,
                     fontWeight = FontWeight.Normal,
                     color = Color.Black
