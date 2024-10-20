@@ -184,10 +184,7 @@ fun PostContent(
                 }
 
                 Row(
-                    modifier = Modifier
-                        .clickable {
-                            onCommentClick()
-                        },
+                    modifier = Modifier,
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
@@ -209,10 +206,7 @@ fun PostContent(
                 }
 
                 Row(
-                    modifier = Modifier
-                        .clickable {
-                            onShareClick()
-                        },
+                    modifier = Modifier,
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
