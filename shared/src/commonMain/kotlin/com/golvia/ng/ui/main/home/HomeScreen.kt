@@ -33,6 +33,7 @@ import com.golvia.ng.presentation.component.SearchBox
 import com.golvia.ng.presentation.component.Spacer_12dp
 import com.golvia.ng.presentation.component.RoundedFlatButton
 import com.golvia.ng.presentation.component.Spacer_16dp
+import com.golvia.ng.presentation.component.Spacer_8dp
 import com.golvia.ng.presentation.theme.faint_red
 import com.golvia.ng.presentation.theme.gold_color
 import com.golvia.ng.presentation.theme.light_gold
@@ -165,7 +166,7 @@ fun HomeScreen(
                        }
                    )
                }
-               Spacer_16dp()
+               Spacer_8dp()
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.Top,
