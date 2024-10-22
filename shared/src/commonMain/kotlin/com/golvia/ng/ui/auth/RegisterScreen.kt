@@ -52,9 +52,11 @@ import golvia.shared.generated.resources.continue_with_google
 import golvia.shared.generated.resources.create_account
 import golvia.shared.generated.resources.email_address
 import golvia.shared.generated.resources.email_error
+import golvia.shared.generated.resources.full_name
 import golvia.shared.generated.resources.have_account
 import golvia.shared.generated.resources.ic_google_icon
 import golvia.shared.generated.resources.ic_logo_header
+import golvia.shared.generated.resources.legal_name_message
 import golvia.shared.generated.resources.login
 import golvia.shared.generated.resources.password
 import golvia.shared.generated.resources.password_error
@@ -82,8 +84,11 @@ fun RegisterScreen(
         val password = remember { mutableStateOf("") }
         val isPasswordError = remember { mutableStateOf(false) }
         val isEmailError = remember { mutableStateOf(false) }
+        val isFullNameError = remember { mutableStateOf(false) }
         val passWordError = remember { mutableStateOf("") }
         val emailError = remember { mutableStateOf("") }
+        val fullName = remember { mutableStateOf("") }
+        val fullNameError = remember { mutableStateOf("") }
         passWordError.value = stringResource(Res.string.password_error)
         emailError.value = stringResource(Res.string.email_error)
 
@@ -140,6 +145,21 @@ fun RegisterScreen(
                 Spacer_16dp()
 
                 Column(horizontalAlignment = Alignment.Start) {
+                    InputFieldHeader(
+                        textValue = stringResource(Res.string.full_name)
+                    )
+                    Spacer_4dp()
+                    OutlinedInputField(
+                        isError = isFullNameError.value,
+                        errorValue = fullNameError.value,
+                        textFieldValue = fullName.value,
+                        onValueChange = {
+                            isEmailError.value = false
+                            email.value = it
+                        }
+                    )
+                    Text(stringResource(Res.string.legal_name_message), color = Color.Gray)
+                    Spacer_24dp()
                     InputFieldHeader(
                         textValue = stringResource(Res.string.email_address)
                     )

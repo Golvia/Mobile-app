@@ -21,4 +21,6 @@
     <string name="password_error">Password must be at least 6 characters</string>
     <string name="go_premium">Go premium</string>
     <string name="email_error">Invalid email address</string>
+    <string name="full_name">Full Name</string>
+    <string name="legal_name_message">Legal name appear on your identity or documents</string>
 </resources>

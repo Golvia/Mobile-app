@@ -36,6 +36,7 @@ import org.jetbrains.compose.resources.stringResource
     textFieldValue: String,
     isError: Boolean = false,
     errorValue: String? = null,
+    placeholder: String? = stringResource(Res.string.email_hint),
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         imeAction = ImeAction.Next,
@@ -52,7 +53,7 @@ import org.jetbrains.compose.resources.stringResource
              TextField(
                  value = textFieldValue,
                  placeholder = {
-                     Text(stringResource(Res.string.email_hint), color = Color.Gray)
+                     Text(placeholder.orEmpty(), color = Color.Gray)
                  },
                  onValueChange = {
                      if (it.length < 32) {
