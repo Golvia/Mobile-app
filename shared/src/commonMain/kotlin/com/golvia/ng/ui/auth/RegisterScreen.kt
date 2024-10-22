@@ -53,6 +53,7 @@ import golvia.shared.generated.resources.create_account
 import golvia.shared.generated.resources.email_address
 import golvia.shared.generated.resources.email_error
 import golvia.shared.generated.resources.full_name
+import golvia.shared.generated.resources.full_name_hint
 import golvia.shared.generated.resources.have_account
 import golvia.shared.generated.resources.ic_google_icon
 import golvia.shared.generated.resources.ic_logo_header
@@ -153,12 +154,22 @@ fun RegisterScreen(
                         isError = isFullNameError.value,
                         errorValue = fullNameError.value,
                         textFieldValue = fullName.value,
+                        placeholder = stringResource(Res.string.full_name_hint),
                         onValueChange = {
                             isEmailError.value = false
                             email.value = it
                         }
                     )
-                    Text(stringResource(Res.string.legal_name_message), color = Color.Gray)
+                    Text(
+                        stringResource(Res.string.legal_name_message),
+                        style = TextStyle(
+                            fontSize = 12.sp,
+                            lineHeight = 15.sp,
+                            fontFamily = LatoTypography().bodySmall.fontFamily,
+                            fontWeight = FontWeight(300),
+                            color = Color.Gray,
+                            fontStyle = LatoTypography().bodySmall.fontStyle
+                        ))
                     Spacer_24dp()
                     InputFieldHeader(
                         textValue = stringResource(Res.string.email_address)
