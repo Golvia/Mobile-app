@@ -1,11 +1,14 @@
 package com.golvia.ng.presentation.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,12 +17,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text2.input.TextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -32,21 +35,23 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.golvia.ng.businessLayer.domain.DropdownItem
 import com.golvia.ng.presentation.theme.LatoTypography
 import golvia.shared.generated.resources.Res
+import golvia.shared.generated.resources.bookmark
 import golvia.shared.generated.resources.close
+import golvia.shared.generated.resources.ic_network
+import golvia.shared.generated.resources.search
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 
@@ -62,11 +67,10 @@ fun SelectModal(
     items: List<DropdownItem>,
     onItemSelected: (String, String) -> Unit,
     onDismiss: () -> Unit,
-    emptyIcon: Int = 0,
+    emptyIcon: Painter? = null,
     emptyTitle: String = String(),
     emptyMessage: String = String(),
     selectedItem: String = String(),
-    onClickAddNewUnit: () -> Unit = {},
     showSearch: Boolean = true,
     isFromProduct: Boolean = false
 ) {
@@ -151,14 +155,14 @@ fun SelectModal(
                                 decorationBox = { innerTextField ->
                                     CustomSearchViewBox(
                                         search = UIComponentAction(
-                                            viewComponent = painterResource(id = R.drawable.ic_search),
+                                            viewComponent = painterResource(Res.drawable.search),
                                             viewAction = {
                                                 performSearch.value = searchState.value
                                                 focusManager.clearFocus()
                                             }
                                         ),
                                         clearState = UIComponentAction(
-                                            viewComponent = painterResource(id = R.drawable.ic_search_close),
+                                            viewComponent = painterResource(Res.drawable.close),
                                             viewAction = {
                                                 searchState.value = String()
                                                 performSearch.value = String()
@@ -186,7 +190,7 @@ fun SelectModal(
                                         ignoreCase = true
                                     )
                                 }
-                            if (filteredList.isEmpty() && emptyIcon != 0) {
+                            if (filteredList.isEmpty() && emptyIcon != null) {
                                 SelectModalEmptyList(
                                     emptyIcon = emptyIcon,
                                     emptyTitle = emptyTitle,
@@ -207,34 +211,111 @@ fun SelectModal(
                         }
                     }
                 }
-
-                if (isFromProduct) {
-                    OutlinedRoundedButton(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding( bottom =  42.dp, start = 20.dp, end = 20.dp)
-                            .semantics { testTag = TestTags.ADD_PRODUCT_BUTTON },
-                        textButton = stringResource(id = R.string.create_new_unit_of_measurement),
-                        textColor = GraniteGray,
-                        borderColor = SilverSand,
-                        containerColor = Color.White,
-                        enabled = true,
-                        isFromProduct = true,
-                        onClick = {
-                            scope
-                                .launch { sheetState.hide() }
-                                .invokeOnCompletion {
-                                    if (!sheetState.isVisible) {
-                                        onClickAddNewUnit.invoke()
-                                    }
-                                }
-                        }
-                    )
-                    Spacer(modifier = Modifier.padding(bottom = 24.dp))
-                }
             }
         },
         onDismissRequest = onDismiss
     )
 
+}
+
+@Composable
+private fun SelectModalEmptyList(
+    emptyIcon: Painter? = null,
+    emptyTitle: String,
+    emptyMessage: String,
+) {
+    Column(
+        modifier = Modifier
+            .padding(top = 110.dp)
+            .fillMaxWidth()
+            .fillMaxHeight(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Image(
+            painter = painterResource(Res.drawable.ic_network),
+            contentDescription = "",
+            alignment = Alignment.Center,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        Text(
+            text = emptyTitle,
+            style = TextStyle(
+                fontSize = 16.sp,
+                lineHeight = 18.sp,
+                fontFamily = LatoTypography().bodyMedium.fontFamily,
+                fontWeight = FontWeight(500),
+                color = Color.Black
+            ),
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Text(
+            text = emptyMessage,
+            style = TextStyle(
+                fontSize = 14.sp,
+                lineHeight = 18.sp,
+                fontFamily = LatoTypography().bodyMedium.fontFamily,
+                fontWeight = FontWeight(400),
+                color = Color.Gray
+            ),
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SelectModalListContent(
+    selectedItem: String,
+    scope: CoroutineScope,
+    sheetState: SheetState,
+    filteredList: List<DropdownItem>,
+    onDismiss: () -> Unit,
+    onItemSelected: (String, String) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
+        filteredList.map { item ->
+            Row(
+                modifier = Modifier
+                    .clickable {
+                        onItemSelected(item.text, item.additionalInfo)
+                        scope
+                            .launch { sheetState.hide() }
+                            .invokeOnCompletion {
+                                if (!sheetState.isVisible) {
+                                    onDismiss.invoke()
+                                }
+                            }
+                    }
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = item.text,
+                    style = TextStyle(
+                        color = Color.Gray,
+                        fontSize = 16.sp,
+                        lineHeight = 28.sp,
+                        fontFamily = LatoTypography().bodyMedium.fontFamily,
+                        fontWeight = FontWeight(400),
+                        textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier.padding(12.dp)
+                )
+                if (item.text == selectedItem) {
+                    Image(
+                        painter = painterResource(Res.drawable.bookmark),
+                        contentDescription = null,
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(34.dp))
+        }
+        Spacer(modifier = Modifier.height(42.dp))
+    }
 }
