@@ -54,6 +54,7 @@ import com.golvia.ng.presentation.theme.Thick_black
 import com.golvia.ng.presentation.theme.default_black
 import com.golvia.ng.presentation.theme.gray_50
 import com.golvia.ng.presentation.theme.light_gray
+import com.golvia.ng.ui.auth.viewModel.AuthViewModel
 import golvia.shared.generated.resources.Res
 import golvia.shared.generated.resources.close
 import golvia.shared.generated.resources.continue_with_google
@@ -74,6 +75,7 @@ import golvia.shared.generated.resources.register_with_email
 import golvia.shared.generated.resources.sign_up
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
 
 /**
  * davidsunday
@@ -81,10 +83,11 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RegisterScreen(
-    navigateToMain: () -> Unit,
+    navigateToOtp: () -> Unit,
     popUp: () -> Unit
 ){
 
+    val authViewModel: AuthViewModel = koinInject()
     val country = remember { TextFieldState("") }
     val selectedCountryID = remember { mutableLongStateOf(0L) }
     var showCountry by remember { mutableStateOf(false) }
@@ -287,7 +290,8 @@ fun RegisterScreen(
                         isEmailError.value = false
                         isCountryError.value = false
                         // Todo navigate to main when auth is done
-                        navigateToMain()
+                        authViewModel.userName.value = fullName.value
+                        navigateToOtp()
                     }
                 }
 

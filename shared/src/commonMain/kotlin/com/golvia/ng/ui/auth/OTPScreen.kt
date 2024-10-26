@@ -61,6 +61,7 @@ import org.koin.compose.koinInject
 @Composable
 fun OTPScreen(
     popBackStack: () -> Unit,
+    navigateToMain: () -> Unit
 ){
 
     val viewModel: AuthViewModel = koinInject()
@@ -214,6 +215,7 @@ fun OTPScreen(
                         .padding(16.dp)
                 ) {
                     // Todo navigate to main
+                    navigateToMain.invoke()
                 }
             }
 

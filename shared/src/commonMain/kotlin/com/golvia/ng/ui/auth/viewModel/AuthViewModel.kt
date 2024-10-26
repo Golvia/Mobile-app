@@ -24,6 +24,8 @@ class AuthViewModel(
     private val _shouldStartCountdown = MutableStateFlow(true)
     val shouldStartCountdown: StateFlow<Boolean> = _shouldStartCountdown
 
+    val userName = MutableStateFlow(String())
+
 
     fun startCountdown(time: Long) {
         countDownTimer?.stop()

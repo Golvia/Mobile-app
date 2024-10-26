@@ -3,11 +3,9 @@ package com.golvia.ng.ui.splash
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.golvia.ng.common.ChangeStatusBarColors
 import com.golvia.ng.presentation.navigation.SplashNavigation
 import com.golvia.ng.ui.auth.ForgotPasswordScreen
 import com.golvia.ng.ui.auth.LoginScreen
@@ -25,7 +23,7 @@ internal fun SplashNav(
     val navigator = rememberNavController()
 
     NavHost(
-        startDestination = SplashNavigation.OTPScreen.route,
+        startDestination = SplashNavigation.Splash.route,
         navController = navigator,
         modifier = Modifier.fillMaxSize()
     ){
@@ -51,7 +49,8 @@ internal fun SplashNav(
 
         composable(route = SplashNavigation.Register.route) {
             RegisterScreen(
-                navigateToMain = navigateToMain, popUp = {
+                navigateToOtp = { navigator.navigate(SplashNavigation.OTPScreen.route) },
+                popUp = {
                     navigator.popBackStack()
                 }
             )
@@ -69,7 +68,8 @@ internal fun SplashNav(
             OTPScreen(
                 popBackStack = {
                     navigator.popBackStack()
-                }
+                },
+                navigateToMain = navigateToMain
             )
         }
     }
