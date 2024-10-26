@@ -1,6 +1,7 @@
 package com.golvia.ng.di
 
 
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.golvia.ng.businessLayer.core.AppDataStore
 import com.golvia.ng.businessLayer.core.AppDataStoreManager
 import com.golvia.ng.businessLayer.core.KtorHttpClient
@@ -23,7 +24,7 @@ fun appModule(context: Context) = module {
     }
     single<AuthService> { AuthServiceImpl(get()) }
     single<AppDataStore> { AppDataStoreManager(context) }
-    factory { AuthViewModel(get())}
+    single { AuthViewModel(get())}
     single { LoginInteractor(get()) }
     single { TokenManager(get(), get()) }
     single { CheckTokenInteractor(get()) }

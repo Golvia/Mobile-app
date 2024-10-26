@@ -69,6 +69,7 @@ fun OTPScreen(
     val codeStates = remember { List(6) { TextFieldState(String()) } }
     val remainingTime = viewModel.remainingTime.collectAsState()
     val isCountdownRunning = viewModel.isCountdownRunning.collectAsState()
+    val userName = viewModel.userName.collectAsState()
 
     val authenticatorCode = codeStates.joinToString("") { state -> state.value }
 
@@ -109,7 +110,7 @@ fun OTPScreen(
                 Spacer_8dp()
                 Text(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    text = "Hello, James",
+                    text = "Hello, ${userName.value}",
                     style = TextStyle(
                         fontSize = 24.sp,
                         lineHeight = 30.sp,
@@ -128,7 +129,7 @@ fun OTPScreen(
                         fontSize = 16.sp,
                         lineHeight = 24.sp,
                         fontFamily = LatoTypography().bodySmall.fontFamily,
-                        fontWeight = FontWeight(600),
+                        fontWeight = FontWeight(400),
                         color = gray_50,
                         fontStyle = LatoTypography().bodyMedium.fontStyle
                     ),
@@ -142,7 +143,7 @@ fun OTPScreen(
                         fontSize = 16.sp,
                         lineHeight = 24.sp,
                         fontFamily = LatoTypography().bodySmall.fontFamily,
-                        fontWeight = FontWeight(600),
+                        fontWeight = FontWeight(400),
                         color = gray_100,
                         fontStyle = LatoTypography().bodyMedium.fontStyle
                     ),
@@ -173,7 +174,7 @@ fun OTPScreen(
                             fontSize = 14.sp,
                             lineHeight = 18.sp,
                             fontFamily = LatoTypography().bodySmall.fontFamily,
-                            fontWeight = FontWeight(600),
+                            fontWeight = FontWeight(400),
                             color = gray_50,
                             fontStyle = LatoTypography().bodySmall.fontStyle
                         ),
@@ -191,8 +192,8 @@ fun OTPScreen(
                             fontSize = 14.sp,
                             lineHeight = 28.sp,
                             fontFamily = LatoTypography().bodySmall.fontFamily,
-                            fontWeight = FontWeight(600),
-                            color = Color.Black,
+                            fontWeight = FontWeight(400),
+                            color = gray_50,
                             fontStyle = LatoTypography().bodySmall.fontStyle
                         ),
                         textAlign = TextAlign.Center

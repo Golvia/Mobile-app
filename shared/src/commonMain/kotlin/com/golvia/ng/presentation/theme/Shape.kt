@@ -88,5 +88,7 @@ fun TextFieldWithTransparentTheme() = TextFieldDefaults.colors(
     disabledIndicatorColor = Color.Transparent,
     focusedContainerColor = Color.Transparent,
     disabledContainerColor = Color.Transparent,
-    unfocusedContainerColor = Color.Transparent
+    unfocusedContainerColor = Color.Transparent,
+    unfocusedTextColor = Color.Black,
+    focusedTextColor = Color.Black
 )

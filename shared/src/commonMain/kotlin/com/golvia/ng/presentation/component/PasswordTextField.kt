@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.golvia.ng.presentation.theme.LatoTypography
 import com.golvia.ng.presentation.theme.TextFieldWithTransparentTheme
+import com.golvia.ng.presentation.theme.gray_10
 import com.golvia.ng.presentation.theme.gray_20
 import com.golvia.ng.presentation.theme.gray_50
 import com.golvia.ng.presentation.theme.icon_default_color
@@ -68,7 +69,7 @@ fun PasswordTextField(
             TextField(
                 modifier = modifier,
                 placeholder = {
-                    Text(stringResource(Res.string.password_hint), color = Color.Gray)
+                    Text(stringResource(Res.string.password_hint), color = gray_10)
                 },
                 colors = TextFieldWithTransparentTheme(),
                 shape = MaterialTheme.shapes.small,

@@ -191,8 +191,8 @@ fun RegisterScreen(
                         textFieldValue = fullName.value,
                         placeholder = stringResource(Res.string.full_name_hint),
                         onValueChange = {
-                            isEmailError.value = false
-                            email.value = it
+                            isFullNameError.value = false
+                            fullName.value = it
                         }
                     )
                     Text(
@@ -222,6 +222,7 @@ fun RegisterScreen(
                         placeholder = "Select",
                         textFieldValue = country.value,
                         onValueChange = {
+                            isCountryError.value = false
                             country.value = it
                         },
                         showDropDown = true
@@ -276,7 +277,12 @@ fun RegisterScreen(
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)
                 ) {
-                    if (!validateEmail(email.value)){
+                    val nameParts = fullName.value.trim().split(" ")
+
+                    if (nameParts.size < 2 || fullName.value.contains("@")) {
+                        isFullNameError.value = true
+                        fullNameError.value = "Please enter both first and last names without '@'."
+                    }else if (!validateEmail(email.value)){
                         isEmailError.value = true
                         return@NormalRoundedButton
                     }else if (password.value.length < 6) {

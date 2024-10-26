@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -39,7 +40,9 @@ import androidx.compose.ui.unit.sp
 import com.golvia.ng.presentation.theme.BorderColor
 import com.golvia.ng.presentation.theme.LatoTypography
 import com.golvia.ng.presentation.theme.TextFieldWithTransparentTheme
+import com.golvia.ng.presentation.theme.gray_10
 import com.golvia.ng.presentation.theme.gray_50
+import com.golvia.ng.presentation.theme.hint_color
 import com.golvia.ng.presentation.theme.red_error
 import golvia.shared.generated.resources.Res
 import golvia.shared.generated.resources.arrow_down
@@ -66,6 +69,8 @@ import org.jetbrains.compose.resources.stringResource
         keyboardType = KeyboardType.Email,
     )
 ) {
+    val textColor = if (textFieldValue.isNotEmpty()) Color.Black else gray_10
+
      Column {
          Box(
              modifier = modifier
@@ -83,7 +88,7 @@ import org.jetbrains.compose.resources.stringResource
                      enabled = enabled,
                      value = textFieldValue,
                      placeholder = {
-                         Text(placeholder.orEmpty(), color = Color.Gray)
+                         Text(placeholder.orEmpty(), color = gray_10)
                      },
                      onValueChange = {
                          if (it.length < 32) {
