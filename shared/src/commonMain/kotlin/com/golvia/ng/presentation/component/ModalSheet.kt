@@ -49,6 +49,7 @@ import com.golvia.ng.presentation.theme.LatoTypography
 import golvia.shared.generated.resources.Res
 import golvia.shared.generated.resources.bookmark
 import golvia.shared.generated.resources.close
+import golvia.shared.generated.resources.delete
 import golvia.shared.generated.resources.ic_network
 import golvia.shared.generated.resources.search
 import kotlinx.coroutines.CoroutineScope

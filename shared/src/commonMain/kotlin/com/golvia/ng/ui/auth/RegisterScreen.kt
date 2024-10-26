@@ -55,6 +55,7 @@ import com.golvia.ng.presentation.theme.default_black
 import com.golvia.ng.presentation.theme.gray_50
 import com.golvia.ng.presentation.theme.light_gray
 import golvia.shared.generated.resources.Res
+import golvia.shared.generated.resources.close
 import golvia.shared.generated.resources.continue_with_google
 import golvia.shared.generated.resources.create_account
 import golvia.shared.generated.resources.email_address
@@ -343,7 +344,7 @@ fun AddUnitOfMeasurementListModal(
         onItemSelected = { selectedText, selectedInfo ->
             countryState.value = selectedText
         },
-        emptyIcon = painterResource(Res.drawable.ic_network),
+        emptyIcon = painterResource(Res.drawable.close),
         onDismiss = onDismiss,
         emptyTitle = "No Match Found",
         emptyMessage = "No Country to display",
