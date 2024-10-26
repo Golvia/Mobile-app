@@ -11,6 +11,7 @@ import com.golvia.ng.common.ChangeStatusBarColors
 import com.golvia.ng.presentation.navigation.SplashNavigation
 import com.golvia.ng.ui.auth.ForgotPasswordScreen
 import com.golvia.ng.ui.auth.LoginScreen
+import com.golvia.ng.ui.auth.OTPScreen
 import com.golvia.ng.ui.auth.RegisterScreen
 
 /**
@@ -24,7 +25,7 @@ internal fun SplashNav(
     val navigator = rememberNavController()
 
     NavHost(
-        startDestination = SplashNavigation.Splash.route,
+        startDestination = SplashNavigation.OTPScreen.route,
         navController = navigator,
         modifier = Modifier.fillMaxSize()
     ){
@@ -59,6 +60,14 @@ internal fun SplashNav(
         composable(route = SplashNavigation.ForgetPassword.route) {
             ForgotPasswordScreen(
                  popUp = {
+                    navigator.popBackStack()
+                }
+            )
+        }
+
+        composable(route = SplashNavigation.OTPScreen.route) {
+            OTPScreen(
+                popBackStack = {
                     navigator.popBackStack()
                 }
             )

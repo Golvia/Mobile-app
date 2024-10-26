@@ -1,5 +1,7 @@
 package com.golvia.ng.businessLayer.core
 
+import business.datasource.network.common.JAlertResponse
+
 
 sealed class UIComponent {
 
@@ -17,6 +19,8 @@ sealed class UIComponent {
         val message:String,
     ): UIComponent()
 
-
+    data class Dialog(
+        val alert: JAlertResponse
+    ): UIComponent()
 
 }
