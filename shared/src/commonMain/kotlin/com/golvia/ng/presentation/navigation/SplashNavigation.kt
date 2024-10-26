@@ -20,4 +20,6 @@ sealed class SplashNavigation(
 
     data object OTPScreen : SplashNavigation(route = "OTPScreen", arguments = emptyList())
 
+    data object ProfileType : SplashNavigation(route = "ProfileType", arguments = emptyList())
+
 }

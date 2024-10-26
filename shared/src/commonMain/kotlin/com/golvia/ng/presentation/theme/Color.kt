@@ -38,6 +38,8 @@ val desc_text_color = Color(0xFF504C4C)
 val gray_5 = Color(0xFF7F7F7F)
 val gray_10 = Color(0xFF1A1A1A8)
 val hint_color = Color(0xFF1A1A1A66)
+val page_Text_color = Color(0xFF304C75)
+val page_text_color2 = Color(0xFF14376A)
 
 
 

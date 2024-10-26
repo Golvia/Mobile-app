@@ -10,6 +10,7 @@ import com.golvia.ng.presentation.navigation.SplashNavigation
 import com.golvia.ng.ui.auth.ForgotPasswordScreen
 import com.golvia.ng.ui.auth.LoginScreen
 import com.golvia.ng.ui.auth.OTPScreen
+import com.golvia.ng.ui.auth.ProfileTypeScreen
 import com.golvia.ng.ui.auth.RegisterScreen
 
 /**
@@ -23,7 +24,7 @@ internal fun SplashNav(
     val navigator = rememberNavController()
 
     NavHost(
-        startDestination = SplashNavigation.Splash.route,
+        startDestination = SplashNavigation.ProfileType.route,
         navController = navigator,
         modifier = Modifier.fillMaxSize()
     ){
@@ -69,7 +70,16 @@ internal fun SplashNav(
                 popBackStack = {
                     navigator.popBackStack()
                 },
-                navigateToMain = navigateToMain
+                navigateToMain = { navigator.navigate(SplashNavigation.ProfileType.route) }
+            )
+        }
+
+        composable(route = SplashNavigation.ProfileType.route) {
+            ProfileTypeScreen(
+                popUp = {
+                    //todo, show warning and take the user back to register screen
+                    navigator.popBackStack()
+                }
             )
         }
     }
