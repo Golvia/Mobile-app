@@ -17,7 +17,7 @@ data class FeedsData(
     val description: String?,
     val descImage: String?,
     val likes: List<Likes>?,
-    val comments: List<Comments>?,
+    val comments: List<Comments>,
     val share: List<Shares>?
 )
 
@@ -31,6 +31,8 @@ data class Likes(
 data class Comments(
     val id: Int?,
     val comment: String?,
+    val image: String? = null,
+    val name: String? = null
 )
 
 @Serializable
@@ -51,9 +53,9 @@ fun createDummyFeedsData(): List<FeedsData> {
     )
 
     val dummyComments = listOf(
-        Comments(id = 1, comment = "Great post!"),
-        Comments(id = 2, comment = "Thanks for sharing!"),
-        Comments(id = 3, comment = "Very informative."),
+        Comments(id = 1, comment = "Great post!", name = "John Doe", image = "https://example.com/image1.jpg"),
+        Comments(id = 2, comment = "Thanks for sharing!", name = "Jane Smith", image = "https://example.com/image2.jpg"),
+        Comments(id = 3, comment = "Very informative.", name = "Alice Johnson", image = "https://example.com/image3.jpg"),
     )
 
     val dummyShares = listOf(

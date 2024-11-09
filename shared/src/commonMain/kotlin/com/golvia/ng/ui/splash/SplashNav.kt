@@ -45,7 +45,7 @@ internal fun SplashNav(
         composable(route = SplashNavigation.Login.route) {
             LoginScreen(
                 navigateToMain = navigateToMain, navigateToRegister = {
-                    navigateToMain.invoke()
+                    navigator.navigate(SplashNavigation.Register.route)
                 },
                 navigateToForgotPassword = {
                     navigator.navigate(SplashNavigation.ForgetPassword.route)
