@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
@@ -25,13 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.golvia.ng.businessLayer.domain.OptionItem
 import com.golvia.ng.presentation.component.DefaultScreenUI
 import com.golvia.ng.presentation.component.NormalRoundedButton
-import com.golvia.ng.presentation.component.OptionItemView
-import com.golvia.ng.presentation.component.Spacer_16dp
+import com.golvia.ng.presentation.component.SingleSelectionListItem
 import com.golvia.ng.presentation.component.Spacer_24dp
-import com.golvia.ng.presentation.component.Spacer_32dp
 import com.golvia.ng.presentation.component.Spacer_64dp
 import com.golvia.ng.presentation.component.Spacer_8dp
 import com.golvia.ng.presentation.component.StepItem
@@ -43,10 +41,6 @@ import com.golvia.ng.presentation.theme.light_gray
 import com.golvia.ng.presentation.theme.page_text_color2
 import com.golvia.ng.ui.auth.viewModel.AuthViewModel
 import golvia.shared.generated.resources.Res
-import golvia.shared.generated.resources.ic_athletes
-import golvia.shared.generated.resources.ic_club_team
-import golvia.shared.generated.resources.ic_fan_base
-import golvia.shared.generated.resources.ic_scout
 import golvia.shared.generated.resources.one
 import golvia.shared.generated.resources.three
 import golvia.shared.generated.resources.two
@@ -58,23 +52,24 @@ import org.koin.compose.koinInject
  */
 
 @Composable
-fun ProfileTypeScreen(
+fun SportTypeScreen(
     popUp: () -> Unit,
-    onNextClicked: () -> Unit = {},
-    onOptionSelected: (String) -> Unit = {}
+    onItemSelected: (String) -> Unit = {}
 ) {
     val authViewModel: AuthViewModel = koinInject()
     val userName = authViewModel.userName.collectAsState()
 
-    // State for the currently selected option
-    var selectedOption by remember { mutableStateOf<String?>(null) }
+    // Keep track of the selected item
+    var selectedItem by remember { mutableStateOf<String?>(null) }
 
-    // Define options
-    val options = listOf(
-        OptionItem("Athletes", painterResource(Res.drawable.ic_athletes)),
-        OptionItem("Scout", painterResource(Res.drawable.ic_scout)),
-        OptionItem("Club/Team", painterResource(Res.drawable.ic_club_team)),
-        OptionItem("Fan base", painterResource(Res.drawable.ic_fan_base))
+    // Renamed the list to avoid conflict
+    val sportsList = listOf(
+        "Crickets",
+        "Basketball",
+        "Tennis",
+        "Football",
+        "Swimming",
+        "Ping pong"
     )
 
     DefaultScreenUI(
@@ -83,6 +78,7 @@ fun ProfileTypeScreen(
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -90,6 +86,7 @@ fun ProfileTypeScreen(
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 Spacer_24dp()
 
                 // Step Indicators
@@ -133,8 +130,7 @@ fun ProfileTypeScreen(
                 // Greeting and Instructions
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState()),
+                        .fillMaxSize(),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -153,7 +149,7 @@ fun ProfileTypeScreen(
                     Spacer_8dp()
                     Text(
                         modifier = Modifier.align(Alignment.CenterHorizontally),
-                        text = "Select your profile type",
+                        text = "Select your sport type",
                         style = TextStyle(
                             fontSize = 16.sp,
                             lineHeight = 24.sp,
@@ -167,49 +163,25 @@ fun ProfileTypeScreen(
 
                     Spacer_64dp()
 
-                    // Options Grid
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                    // Updated LazyColumn for single selection
+                    LazyColumn(
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                            OptionItemView(
-                                option = options[0],
-                                isSelected = options[0].label == selectedOption
-                            ) {
-                                selectedOption = options[0].label
-                                onOptionSelected(options[0].label)
-                            }
-                            OptionItemView(
-                                option = options[1],
-                                isSelected = options[1].label == selectedOption
-                            ) {
-                                selectedOption = options[1].label
-                                onOptionSelected(options[1].label)
-                            }
-                        }
-                        Spacer_16dp()
-                        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                            OptionItemView(
-                                option = options[2],
-                                isSelected = options[2].label == selectedOption
-                            ) {
-                                selectedOption = options[2].label
-                                onOptionSelected(options[2].label)
-                            }
-                            OptionItemView(
-                                option = options[3],
-                                isSelected = options[3].label == selectedOption
-                            ) {
-                                selectedOption = options[3].label
-                                onOptionSelected(options[3].label)
-                            }
+                        items(sportsList.size) { sport ->
+                            SingleSelectionListItem(
+                                text = sportsList[sport],
+                                isSelected = sportsList[sport] == selectedItem,
+                                onClick = {
+                                    selectedItem = sportsList[sport] // Update selected item
+                                    onItemSelected(sportsList[sport]) // Notify parent about selection
+                                }
+                            )
                         }
                     }
                 }
             }
 
-            // Bottom Button
+            // Bottom "Next" button
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -219,14 +191,13 @@ fun ProfileTypeScreen(
                     textButton = "Next",
                     textColor = Color.White,
                     containerColor = PrimaryColor,
-                    enabled = selectedOption != null,
+                    enabled = selectedItem != null,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(16.dp)
                 ) {
-                    // Navigate or perform action based on selection
-                    selectedOption?.let {
-                        onNextClicked.invoke()
+                    selectedItem?.let {
+                        // Perform the next step
                     }
                 }
             }

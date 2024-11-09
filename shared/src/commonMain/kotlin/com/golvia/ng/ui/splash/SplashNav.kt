@@ -12,6 +12,7 @@ import com.golvia.ng.ui.auth.LoginScreen
 import com.golvia.ng.ui.auth.OTPScreen
 import com.golvia.ng.ui.auth.ProfileTypeScreen
 import com.golvia.ng.ui.auth.RegisterScreen
+import com.golvia.ng.ui.auth.SportTypeScreen
 
 /**
  * davidsunday
@@ -24,7 +25,7 @@ internal fun SplashNav(
     val navigator = rememberNavController()
 
     NavHost(
-        startDestination = SplashNavigation.ProfileType.route,
+        startDestination = SplashNavigation.SportType.route,
         navController = navigator,
         modifier = Modifier.fillMaxSize()
     ){
@@ -78,6 +79,18 @@ internal fun SplashNav(
             ProfileTypeScreen(
                 popUp = {
                     //todo, show warning and take the user back to register screen
+                    navigator.popBackStack()
+                },
+                onNextClicked = {
+                    navigator.navigate(SplashNavigation.SportType.route)
+                }
+            )
+        }
+
+        composable(route = SplashNavigation.SportType.route) {
+            SportTypeScreen(
+                popUp = {
+                    //todo, handle back click
                     navigator.popBackStack()
                 }
             )

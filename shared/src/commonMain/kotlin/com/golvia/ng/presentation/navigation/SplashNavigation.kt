@@ -22,4 +22,6 @@ sealed class SplashNavigation(
 
     data object ProfileType : SplashNavigation(route = "ProfileType", arguments = emptyList())
 
+    data object SportType : SplashNavigation(route = "SportType", arguments = emptyList())
+
 }
