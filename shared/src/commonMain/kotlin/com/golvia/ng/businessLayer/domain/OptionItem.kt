@@ -8,6 +8,5 @@ import androidx.compose.ui.graphics.painter.Painter
 
 data class OptionItem(
     val label: String,
-    val iconRes: Painter,
-    val isSelected: Boolean
+    val iconRes: Painter
 )
