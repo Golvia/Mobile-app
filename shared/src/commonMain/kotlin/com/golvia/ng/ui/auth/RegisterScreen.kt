@@ -285,8 +285,9 @@ fun RegisterScreen(
                     }else if (!validateEmail(email.value)){
                         isEmailError.value = true
                         return@NormalRoundedButton
-                    }else if (password.value.length < 6) {
+                    }else if (password.value.length < 8) {
                         isPasswordError.value = true
+                        passWordError.value = "Password must be at least 8 characters"
                         return@NormalRoundedButton
                     }else if (country.value == "Select"){
                         isCountryError.value = true

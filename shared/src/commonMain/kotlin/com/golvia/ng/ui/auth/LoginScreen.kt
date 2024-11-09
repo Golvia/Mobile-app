@@ -198,6 +198,7 @@ fun LoginScreen(
                         .padding(16.dp)
                 ) {
                     // Todo navigate to main
+                    navigateToMain.invoke()
                 }
 
                 Row(

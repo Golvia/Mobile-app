@@ -11,6 +11,7 @@ import com.golvia.ng.ui.auth.CompleteRegistrationScreen
 import com.golvia.ng.ui.auth.ForgotPasswordInputScreen
 import com.golvia.ng.ui.auth.ForgotPasswordLinkScreen
 import com.golvia.ng.ui.auth.ForgotPasswordScreen
+import com.golvia.ng.ui.auth.ForgotPasswordSuccessScreen
 import com.golvia.ng.ui.auth.LoginScreen
 import com.golvia.ng.ui.auth.OTPScreen
 import com.golvia.ng.ui.auth.ProfileTypeScreen
@@ -28,7 +29,7 @@ internal fun SplashNav(
     val navigator = rememberNavController()
 
     NavHost(
-        startDestination = SplashNavigation.ForgetPasswordInput.route,
+        startDestination = SplashNavigation.Splash.route,
         navController = navigator,
         modifier = Modifier.fillMaxSize()
     ){
@@ -44,7 +45,7 @@ internal fun SplashNav(
         composable(route = SplashNavigation.Login.route) {
             LoginScreen(
                 navigateToMain = navigateToMain, navigateToRegister = {
-                    navigator.navigate(SplashNavigation.Register.route)
+                    navigateToMain.invoke()
                 },
                 navigateToForgotPassword = {
                     navigator.navigate(SplashNavigation.ForgetPassword.route)
@@ -137,6 +138,14 @@ internal fun SplashNav(
                     //todo, handle back click
                     navigator.popBackStack()
                 },
+                popUpToLogin = {
+                    navigator.navigate(SplashNavigation.Login.route)
+                }
+            )
+        }
+
+        composable(route = SplashNavigation.ForgetPasswordSuccess.route) {
+            ForgotPasswordSuccessScreen(
                 popUpToLogin = {
                     navigator.navigate(SplashNavigation.Login.route)
                 }
