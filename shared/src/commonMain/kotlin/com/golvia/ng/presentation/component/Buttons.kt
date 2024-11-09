@@ -287,6 +287,47 @@ fun OutlinedRoundedButtonWithNoIcon(
 }
 
 @Composable
+fun OutlinedNormalButtonWithNoIcon(
+    modifier: Modifier = Modifier,
+    textButton: String,
+    textColor: Color,
+    borderColor: Color,
+    containerColor: Color,
+    enabled: Boolean,
+    textColorDisabled: Color = LightGray,
+    borderColorDisabled: Color = LightGray,
+    containerColorDisabled: Color = White,
+    onClick: () -> Unit
+) {
+    Button(
+        modifier = modifier
+            .fillMaxWidth(),
+        enabled = enabled,
+        shape = RoundedCornerShape(10.dp),
+        onClick = onClick,
+        elevation = null,
+        border = BorderStroke(1.dp, if (enabled) borderColor else borderColorDisabled),
+        colors = ButtonDefaults.outlinedButtonColors(
+            if (enabled) containerColor else containerColorDisabled
+        ),
+        contentPadding = PaddingValues(horizontal = 0.dp, vertical = 4.dp)
+    ) {
+        Text(
+            modifier = Modifier.padding(vertical = 16.dp),
+            text = textButton,
+            style = TextStyle(
+                fontSize = 12.sp,
+                lineHeight = 14.sp,
+                fontFamily = LatoTypography().bodyLarge.fontFamily,
+                fontWeight = FontWeight(700),
+                color = if (enabled) textColor else textColorDisabled,
+                textAlign = TextAlign.Center
+            )
+        )
+    }
+}
+
+@Composable
 fun RoundedFlatButton(
     modifier: Modifier = Modifier,
     text: String = "Start a post",

@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.golvia.ng.presentation.navigation.SplashNavigation
 import com.golvia.ng.ui.auth.CompleteRegistrationScreen
+import com.golvia.ng.ui.auth.ForgotPasswordLinkScreen
 import com.golvia.ng.ui.auth.ForgotPasswordScreen
 import com.golvia.ng.ui.auth.LoginScreen
 import com.golvia.ng.ui.auth.OTPScreen
@@ -26,7 +27,7 @@ internal fun SplashNav(
     val navigator = rememberNavController()
 
     NavHost(
-        startDestination = SplashNavigation.Login.route,
+        startDestination = SplashNavigation.ForgetPasswordLink.route,
         navController = navigator,
         modifier = Modifier.fillMaxSize()
     ){
@@ -63,6 +64,23 @@ internal fun SplashNav(
             ForgotPasswordScreen(
                  popUp = {
                     navigator.popBackStack()
+                },
+                popUpToLogin = {
+                    navigator.navigate(SplashNavigation.Login.route)
+                },
+                popUpToForgotPasswordLink = {
+                    navigator.navigate(SplashNavigation.ForgetPasswordLink.route)
+                }
+            )
+        }
+
+        composable(route = SplashNavigation.ForgetPasswordLink.route) {
+            ForgotPasswordLinkScreen(
+                popUp = {
+                    navigator.popBackStack()
+                },
+                popUpToLogin = {
+                    navigator.navigate(SplashNavigation.Login.route)
                 }
             )
         }
