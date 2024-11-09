@@ -54,7 +54,8 @@ import org.koin.compose.koinInject
 @Composable
 fun SportTypeScreen(
     popUp: () -> Unit,
-    onItemSelected: (String) -> Unit = {}
+    onItemSelected: (String) -> Unit = {},
+    onNextClicked: () -> Unit = {}
 ) {
     val authViewModel: AuthViewModel = koinInject()
     val userName = authViewModel.userName.collectAsState()
@@ -198,6 +199,7 @@ fun SportTypeScreen(
                 ) {
                     selectedItem?.let {
                         // Perform the next step
+                        onNextClicked.invoke()
                     }
                 }
             }
