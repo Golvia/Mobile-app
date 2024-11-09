@@ -4,6 +4,7 @@ package com.golvia.ng.ui.auth
  * davidsunday
  */
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,21 +21,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -45,17 +43,21 @@ import androidx.compose.ui.unit.sp
 import com.golvia.ng.presentation.component.DefaultScreenUI
 import com.golvia.ng.presentation.component.DefaultText
 import com.golvia.ng.presentation.component.InputFieldHeader
+import com.golvia.ng.presentation.component.NormalRoundedButton
 import com.golvia.ng.presentation.component.OutlinedInputField
-import com.golvia.ng.presentation.component.OutlinedNormalButtonWithNoIcon
+import com.golvia.ng.presentation.component.PasswordTextField
+import com.golvia.ng.presentation.component.Spacer_16dp
+import com.golvia.ng.presentation.component.Spacer_32dp
 import com.golvia.ng.presentation.component.Spacer_8dp
 import com.golvia.ng.presentation.theme.LatoTypography
 import com.golvia.ng.presentation.theme.PrimaryColor
 import com.golvia.ng.presentation.theme.Thick_black
+import com.golvia.ng.presentation.theme.gray_50
 import com.golvia.ng.ui.auth.viewModel.AuthViewModel
 import golvia.shared.generated.resources.Res
 import golvia.shared.generated.resources.back
 import golvia.shared.generated.resources.ic_logo_header
-import golvia.shared.generated.resources.ic_mail_icon
+import golvia.shared.generated.resources.password
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
@@ -63,13 +65,18 @@ import org.koin.compose.koinInject
 /**
  * davidsunday
  */
+
 @Composable
-fun ForgotPasswordLinkScreen(
+fun ForgotPasswordInputScreen(
     popUp: () -> Unit,
-    popUpToLogin: () -> Unit
+    popUpToLogin: () -> Unit,
+    popUpToSuccess: () -> Unit = {}
 ) {
-    val authViewModel: AuthViewModel = koinInject()
-    val email = authViewModel.email.collectAsState()
+
+    val newPassword = remember { mutableStateOf(String()) }
+    val confirmPassword = remember { mutableStateOf(String()) }
+    val isPasswordError = remember { mutableStateOf(false) }
+    val errorValue = remember { mutableStateOf(String()) }
 
     DefaultScreenUI(
         backIconToolbar = Icons.AutoMirrored.Default.ArrowBack,
@@ -118,23 +125,13 @@ fun ForgotPasswordLinkScreen(
                         .padding(20.dp)
                 ) {
                     Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 24.dp, bottom = 24.dp),
+                        modifier = Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Icon(
-                            painter = painterResource(Res.drawable.ic_mail_icon),
-                            contentDescription = stringResource(Res.string.back),
-                            tint = Color.Unspecified,
-                            modifier = Modifier.size(80.dp)
-                        )
-                        Spacer_8dp()
-
                         // Title text
                         Text(
-                            text = "We sent you an Email",
+                            text = "Set new Password",
                             style = TextStyle(
                                 fontSize = 20.sp,
                                 lineHeight = 25.sp,
@@ -144,78 +141,62 @@ fun ForgotPasswordLinkScreen(
                             ),
                             textAlign = TextAlign.Center
                         )
-
-                        Spacer_8dp()
-
-                        // Text with "contact support" styled and underlined
-                        val annotatedText = buildAnnotatedString {
-                            append("Kindly, click on the link sent to your email\n")
-                            append("to verify that this account is yours. If you\n")
-                            append("don’t get an email, please ")
-
-                            // Add the underlined and clickable part
-                            pushStyle(
-                                style = SpanStyle(
-                                    color = PrimaryColor,
-                                    textDecoration = TextDecoration.Underline,
-                                    fontFamily = LatoTypography().bodyMedium.fontFamily,
-                                    fontWeight = FontWeight(400)
-                                )
-                            )
-                            append("contact support")
-                            pop() // End styling
-                        }
-
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            ClickableText(
-                                text = annotatedText,
-                                style = TextStyle(
-                                    fontSize = 16.sp,
-                                    lineHeight = 22.sp,
-                                    fontWeight = FontWeight(400),
-                                    color = Color.Black,
-                                    fontFamily = LatoTypography().bodyMedium.fontFamily
-                                ),
-                                onClick = { offset ->
-                                    //Todo navigate to support
-                                }
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.height(32.dp))
+                        Spacer_32dp()
 
                         // Input field for email
                         Column(horizontalAlignment = Alignment.Start) {
                             InputFieldHeader(
-                                textValue = "Email"
+                                textValue = "Create new Password"
                             )
                             Spacer(modifier = Modifier.height(4.dp))
-                            OutlinedInputField(
-                                enabled = false,
-                                textFieldValue = email.value,
-                                onValueChange = { },
-                                keyboardOptions = KeyboardOptions(
-                                    imeAction = ImeAction.Done,
-                                    keyboardType = KeyboardType.Email
-                                ),
-                                placeholder = "Enter email"
+                            PasswordTextField(
+                                isError = isPasswordError.value,
+                                errorValue = errorValue.value,
+                                value = newPassword.value,
+                                placeholder = "Enter Password",
+                                onValueChange = {
+                                    newPassword.value = it
+                                },
+                                modifier = Modifier.fillMaxWidth(),
                             )
+
+                            Spacer_16dp()
+                            InputFieldHeader(
+                                textValue = "Confirm Password"
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            PasswordTextField(
+                                isError = isPasswordError.value,
+                                errorValue = errorValue.value,
+                                value = confirmPassword.value,
+                                placeholder = "Enter Password",
+                                onValueChange = {
+                                    confirmPassword.value = it
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+
                         }
 
                         Spacer(modifier = Modifier.height(32.dp))
 
-                        // Resend Email button
-                        OutlinedNormalButtonWithNoIcon(
-                            textButton = "Resend Email",
-                            textColor = PrimaryColor,
-                            containerColor = Color.White,
-                            enabled = true,
-                            borderColor = PrimaryColor
+                        // Action button
+                        NormalRoundedButton(
+                            textButton = "Reset Password",
+                            textColor = Color.White,
+                            containerColor = PrimaryColor,
+                            enabled = newPassword.value.isNotEmpty() && confirmPassword.value.isNotEmpty(),
+                            modifier = Modifier.fillMaxWidth()
                         ) {
-                            // TODO: Call API to send OTP
+                            if (newPassword.value != confirmPassword.value){
+                                isPasswordError.value = true
+                                errorValue.value = "Password does not match"
+                            }else if (newPassword.value.length < 8){
+                                isPasswordError.value = true
+                                errorValue.value = "Password must be at least 8 characters"
+                            }else{
+                                popUpToSuccess.invoke()
+                            }
                         }
 
                         Spacer_8dp()

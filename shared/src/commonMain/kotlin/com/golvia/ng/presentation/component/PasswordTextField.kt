@@ -50,6 +50,7 @@ fun PasswordTextField(
     readOnly: Boolean = false,
     isError: Boolean = false,
     enabled: Boolean = true,
+    placeholder: String? = stringResource(Res.string.password_hint),
     errorValue: String? = null,
     onValueChange: (String) -> Unit,
 ) {
@@ -69,7 +70,7 @@ fun PasswordTextField(
             TextField(
                 modifier = modifier,
                 placeholder = {
-                    Text(stringResource(Res.string.password_hint), color = gray_10)
+                    Text(placeholder.orEmpty(), color = gray_10)
                 },
                 colors = TextFieldWithTransparentTheme(),
                 shape = MaterialTheme.shapes.small,

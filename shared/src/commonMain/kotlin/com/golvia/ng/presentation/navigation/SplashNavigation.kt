@@ -20,6 +20,8 @@ sealed class SplashNavigation(
 
     data object ForgetPasswordLink : SplashNavigation(route = "ForgetPasswordLink", arguments = emptyList())
 
+    data object ForgetPasswordInput : SplashNavigation(route = "ForgetPasswordInput", arguments = emptyList())
+
     data object OTPScreen : SplashNavigation(route = "OTPScreen", arguments = emptyList())
 
     data object ProfileType : SplashNavigation(route = "ProfileType", arguments = emptyList())
